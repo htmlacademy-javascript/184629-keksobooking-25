@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Вера Титовец](https://up.htmlacademy.ru/javascript/25/user/184629).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Бабченко](https://htmlacademy.ru/profile/babtshe).
 
 ---
 
