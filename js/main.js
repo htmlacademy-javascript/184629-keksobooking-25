@@ -13,7 +13,7 @@ function getRandomInteger(min,max) {
     min = max;
     max = minBefore;
   }
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 /**
@@ -35,11 +35,7 @@ function getRandomFloat(min,max,decimal) {
   return Number((Math.random() * (max - min) + min).toFixed(decimal));
 }
 
-let min = 5;
-let max = 10;
-let decimal = 2;
-
-console.log('Случайное целое число: ' + getRandomInteger(min,max));
-console.log('Случайное число с плавающей точкой: ' + getRandomFloat(min,max,decimal));
+console.log('Случайное целое число: ' + getRandomInteger(5,10));
+console.log('Случайное число с плавающей точкой: ' + getRandomFloat(2.3,6.8,2));
 
 
