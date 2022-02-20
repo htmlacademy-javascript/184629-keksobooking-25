@@ -9,7 +9,7 @@ function getRandomInteger(min,max) {
     return undefined;
   }
   if (min > max) {
-    let minBefore = min;
+    const minBefore = min;
     min = max;
     max = minBefore;
   }
@@ -28,14 +28,12 @@ function getRandomFloat(min,max,decimal) {
     return undefined;
   }
   if (min > max) {
-    let minBefore = min;
+    const minBefore = min;
     min = max;
     max = minBefore;
   }
   return Number((Math.random() * (max - min) + min).toFixed(decimal));
 }
 
-console.log('Случайное целое число: ' + getRandomInteger(5,10));
-console.log('Случайное число с плавающей точкой: ' + getRandomFloat(2.3,6.8,2));
-
-
+getRandomInteger(5,10);
+getRandomFloat(2.3,6.8,2);
