@@ -124,4 +124,4 @@ const createAdvertisement = () => {
 
 const advertisementNearby = Array.from({length: AD_NEARBY_COUNT}, createAdvertisement);
 
-advertisementNearby.display; //потому что необходимо как-то использовать, но не через console.log
+alert(advertisementNearby);
