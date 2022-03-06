@@ -124,4 +124,5 @@ const createAdvertisement = () => {
 
 const advertisementNearby = Array.from({length: AD_NEARBY_COUNT}, createAdvertisement);
 
-alert(advertisementNearby);
+const submitTask = () => advertisementNearby ;
+submitTask();
