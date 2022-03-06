@@ -63,7 +63,7 @@ const getRandomNumber = (min, max, decimal) => {
  * @param {Array} elements массив элементов
  * @returns {String|Number} случайный элемент массива
  */
-const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];;
+const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
 /**
  * Получение случайного номера из диапазона, в формате добавления 0 перед однозначными числами
@@ -123,3 +123,5 @@ const createAdvertisement = () => {
 };
 
 const advertisementNearby = Array.from({length: AD_NEARBY_COUNT}, createAdvertisement);
+
+advertisementNearby.display; //потому что необходимо как-то использовать, но не через console.log
