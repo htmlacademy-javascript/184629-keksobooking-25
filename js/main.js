@@ -39,7 +39,7 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
-]
+];
 const AD_NEARBY_COUNT = 10;
 
 /**
@@ -56,7 +56,7 @@ const getRandomNumber = (min, max, decimal) => {
   const lower = Math.min(Math.abs(min), Math.abs(max));
   const upper = Math.max(Math.abs(min), Math.abs(max));
   return Number((Math.random() * (upper - lower) + lower).toFixed(decimal));
-}
+};
 
 /**
  * Получение случайного элемента из массива
@@ -75,8 +75,8 @@ const getRandomArrayElement = (elements) => {
  */
 const getUserNumber = (min, max) => {
   const randomNumber = getRandomNumber(min, max);
-  return randomNumber > 9 ? randomNumber : ('0' + randomNumber);
-}
+  return randomNumber > 9 ? randomNumber : ['0',randomNumber].join('');
+};
 
 /**
  * Получение массива из случайного количества неповторяющихся элементов
@@ -85,13 +85,14 @@ const getUserNumber = (min, max) => {
  */
 const getUniqueArray = (array) => {
   const length = getRandomNumber(1, FEATURES.length);
-  let result = [];
+  const result = [];
+
   while(result.length < length) {
-    let newElement = getRandomArrayElement(array);
+    const newElement = getRandomArrayElement(array);
     if(!result.includes(newElement)) {
       result.push(newElement);
     }
-  }
+  };
   return result;
 }
 
@@ -101,11 +102,11 @@ const createAdvertisement = () => {
 
   return {
     author: {
-      avatar: 'img/avatars/user'+ getUserNumber(1, 10) + '.png'
+      avatar: ['img/avatars/user',getUserNumber(1, 10),'.png'].join('')
     },
     offer: {
       title: getRandomArrayElement(TITLES),
-      address: lat + ', ' + lng,
+      address: [lat, lng].join(', '),
       price: getRandomNumber(200, 7000),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomNumber(1, 4),
