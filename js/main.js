@@ -63,9 +63,7 @@ const getRandomNumber = (min, max, decimal) => {
  * @param {Array} elements массив элементов
  * @returns {String|Number} случайный элемент массива
  */
-const getRandomArrayElement = (elements) => {
-  return elements[getRandomNumber(0, elements.length - 1)];
-};
+const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];;
 
 /**
  * Получение случайного номера из диапазона, в формате добавления 0 перед однозначными числами
@@ -92,9 +90,9 @@ const getUniqueArray = (array) => {
     if(!result.includes(newElement)) {
       result.push(newElement);
     }
-  };
+  }
   return result;
-}
+};
 
 const createAdvertisement = () => {
   const lat = getRandomNumber(35.65, 35.7, 5);
@@ -125,5 +123,3 @@ const createAdvertisement = () => {
 };
 
 const advertisementNearby = Array.from({length: AD_NEARBY_COUNT}, createAdvertisement);
-
-console.log(advertisementNearby);
