@@ -77,21 +77,29 @@ const getUserNumber = (min, max) => {
 };
 
 /**
+ * Получение случайно переупорядоченного массива (Тасование Фишера Йетса)
+ * @param {array} array исходный массив элементов
+ * @returns {array} новый массив отсортированный случайным образом
+ */
+const shuffle = (array) => {
+  const result = array.slice();
+  for (let i = result.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+};
+
+/**
  * Получение массива из случайного количества неповторяющихся элементов
  * @param {array} array исходный массив элементов
  * @returns {array} новый массив из случайного количества неповторяющихся элементов исходного массива
  */
 const getUniqueArray = (array) => {
-  const length = getRandomNumber(1, FEATURES.length);
-  const result = [];
+  const randomLength = getRandomNumber(1, FEATURES.length);
+  const sortedArray = shuffle(array);
 
-  while(result.length < length) {
-    const newElement = getRandomArrayElement(array);
-    if(!result.includes(newElement)) {
-      result.push(newElement);
-    }
-  }
-  return result;
+  return sortedArray.slice(0,randomLength)
 };
 
 const createAdvertisement = () => {
