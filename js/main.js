@@ -69,11 +69,11 @@ const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements
  * Получение случайного номера из диапазона, в формате добавления 0 перед однозначными числами
  * @param {number} min минимальное значение диапазона от нуля и выше
  * @param {number} max максимальное значение диапазона
- * @returns {number} случайное число из заданного диапазона, в формате добавления 0 перед однозначными числами
+ * @returns {string} случайное число из заданного диапазона, в формате добавления 0 перед однозначными числами
  */
 const getUserNumber = (min, max) => {
   const randomNumber = getRandomNumber(min, max);
-  return randomNumber > 9 ? randomNumber : ['0',randomNumber].join('');
+  return `${randomNumber > 9 ? '' : '0'}${randomNumber}`;
 };
 
 /**
@@ -91,7 +91,7 @@ const shuffle = (array) => {
 };
 
 /**
- * Получение массива из случайного количества неповторяющихся элементов
+ * Получение уникального (из не повторяющихся элементов) массива случайной длины
  * @param {array} array исходный массив элементов
  * @returns {array} новый массив из случайного количества неповторяющихся элементов исходного массива
  */
@@ -108,11 +108,11 @@ const createAdvertisement = () => {
 
   return {
     author: {
-      avatar: ['img/avatars/user',getUserNumber(1, 10),'.png'].join('')
+      avatar: `img/avatars/user${getUserNumber(1, 10)}.png`
     },
     offer: {
       title: getRandomArrayElement(TITLES),
-      address: [lat, lng].join(', '),
+      address: `${lat}, ${lng}`,
       price: getRandomNumber(200, 7000),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomNumber(1, 4),
@@ -121,7 +121,7 @@ const createAdvertisement = () => {
       checkout: getRandomArrayElement(CHECKOUTS),
       features: getUniqueArray(FEATURES),
       description: getRandomArrayElement(DESCRIPTIONS),
-      photos: Array.from({length: getRandomNumber(1, PHOTOS.length)}, () => getRandomArrayElement(PHOTOS))
+      photos: getUniqueArray(PHOTOS)
     },
     location: {
       lat: lat,
