@@ -52,10 +52,10 @@ const shuffle = (array) => {
  * @returns {array} новый массив из случайного количества неповторяющихся элементов исходного массива
  */
 const getUniqueArray = (array) => {
-  const randomLength = getRandomNumber(1, FEATURES.length);
+  const randomLength = getRandomNumber(1, array.length);
   const sortedArray = shuffle(array);
 
   return sortedArray.slice(0,randomLength);
 };
 
-export {getRandomNumber, getRandomArrayElement, getUserNumber, shuffle, getUniqueArray}
+export {getRandomNumber, getRandomArrayElement, getUserNumber, shuffle, getUniqueArray};

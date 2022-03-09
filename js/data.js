@@ -1,4 +1,4 @@
-import {getRandomNumber, getUserNumber, getRandomArrayElement, getUniqueArray} from "./util";
+import {getRandomNumber, getUserNumber, getRandomArrayElement, getUniqueArray} from './util';
 
 const TITLES = [
   'Уютная комнатка для двоих',
