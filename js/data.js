@@ -72,6 +72,6 @@ const createAdvertisement = () => {
   };
 };
 
-const generatingAdsNearby = () => Array.from({length: AD_NEARBY_COUNT}, createAdvertisement);
+const generateAdsNearby = () => Array.from({length: AD_NEARBY_COUNT}, createAdvertisement);
 
-export {generatingAdsNearby};
+export {generateAdsNearby};

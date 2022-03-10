@@ -1,3 +1,3 @@
-import {generatingAdsNearby} from './data';
+import {generateAdsNearby} from './data';
 
-generatingAdsNearby();
+generateAdsNearby();
