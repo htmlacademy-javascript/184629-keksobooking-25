@@ -1,4 +1,4 @@
-import {generateAdsNearby} from "./data.js";
+import {generateAdsNearby} from './data.js';
 
 const renamingTypes = {
   flat: 'Квартира',
@@ -29,8 +29,8 @@ const renderPhotos = (templateElement, data) => {
     const photoTemplate = photoItem.cloneNode();
     photoTemplate.src = photo;
     photosFragment.append(photoTemplate);
-  })
-  photosContainer.innerHTML = "";
+  });
+  photosContainer.innerHTML = '';
   photosContainer.append(photosFragment);
 };
 
@@ -52,14 +52,14 @@ similarAds.forEach(({author, offer}) => {
   cardElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   if (offer.features!==undefined) {
-    generateFeatureList (cardElement, offer.features)
-  } else cardElement.querySelector('.popup__features').remove();
+    generateFeatureList (cardElement, offer.features);
+  } else {cardElement.querySelector('.popup__features').remove();}
   if (offer.description!==undefined) {
     cardElement.querySelector('.popup__description').textContent = offer.description;
-  } else cardElement.querySelector('.popup__description').remove();
+  } else {cardElement.querySelector('.popup__description').remove();}
   if (offer.photos!==undefined) {
     renderPhotos (cardElement, offer.photos);
-  } else cardElement.querySelector('.popup__photos').remove();
+  } else {cardElement.querySelector('.popup__photos').remove();}
 
   similarListFragment.appendChild(cardElement);
 });
