@@ -7,6 +7,23 @@ const renamingTypes = {
   palace: 'Дворец',
   hotel: 'Отель'
 };
+const generateCapacity = (rooms, guests) => {
+  let roomsText;
+  switch (rooms) {
+    case 1:
+      roomsText = 'комната';
+      break;
+    case 2:
+    case 3:
+    case 4:
+      roomsText = 'комнаты';
+      break;
+    default:
+      roomsText = 'комнат';
+  }
+  const guestText = `${guests === 1 ? 'гостя' : 'гостей'}`;
+  return `${rooms} ${roomsText} для ${guests} ${guestText}`;
+};
 const generateFeatureList = (card, features) => {
   const featuresList = card.querySelector('.popup__features');
   featuresList.innerHTML = '';
@@ -43,16 +60,12 @@ similarAds.forEach(({author, offer}) => {
 
   const priceHtml = '<p class="popup__text popup__text--price">offer.price<span> ₽/ночь</span></p>';
 
-  const roomText = `${offer.rooms} комнат${offer.rooms === 1 ? 'а':offer.rooms<5 ? 'ы':''}`;
-  const guestText = `${offer.guests} гост${offer.guests === 1 ? 'я' : 'ей'}`;
-  const capacityContent = `${roomText} для ${guestText}`;
-
   cardElement.querySelector('.popup__avatar').src = author.avatar;
   cardElement.querySelector('.popup__title').textContent = offer.title;
   cardElement.querySelector('.popup__text--address').textContent = offer.address;
   cardElement.querySelector('.popup__text--price').insertHTML = priceHtml;
   cardElement.querySelector('.popup__type').textContent = renamingTypes[offer.type];
-  cardElement.querySelector('.popup__text--capacity').textContent = capacityContent;
+  cardElement.querySelector('.popup__text--capacity').textContent = generateCapacity(offer.rooms, offer.guests);
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   if (offer.features) {
     generateFeatureList (cardElement, offer.features);
