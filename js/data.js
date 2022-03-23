@@ -1,4 +1,4 @@
-import {getRandomNumber, getUserNumber, getRandomArrayElement, getUniqueArray} from './util';
+import {getRandomNumber, getUserNumber, getRandomArrayElement, getUniqueArray} from './util.js';
 
 const TITLES = [
   'Уютная комнатка для двоих',
@@ -42,7 +42,7 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
 ];
-const AD_NEARBY_COUNT = 10;
+const AD_NEARBY_COUNT = 1;
 
 const createAdvertisement = () => {
   const lat = getRandomNumber(35.65, 35.7, 5);

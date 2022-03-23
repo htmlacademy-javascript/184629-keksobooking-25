@@ -1,3 +1,1 @@
-import {generateAdsNearby} from './data';
-
-generateAdsNearby();
+import './similar.js';
