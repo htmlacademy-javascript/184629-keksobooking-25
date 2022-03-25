@@ -1,5 +1,5 @@
 import {generateAdsNearby} from './data.js';
-import {declineWord} from "./util.js";
+import {declineWord} from './util.js';
 
 const renamingTypes = {
   flat: 'Квартира',

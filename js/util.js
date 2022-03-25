@@ -65,7 +65,12 @@ const getUniqueArray = (array) => {
  * @returns {string} существительного соответствующего склонения числительному
  */
 const declineWord = (quantity, wordForms) => {
-  return wordForms[(quantity % 100 > 4 && quantity % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][(quantity % 10 < 5) ? Math.abs(quantity) % 10 : 5]];
-};
+  const quantity100 = Math.abs(quantity) % 100;
+  const quantity10 = quantity100 % 10;
+  if (quantity100 > 10 && quantity100 < 20) { return wordForms[2]; }
+  if (quantity10 > 1 && quantity10 < 5) { return wordForms[1]; }
+  if (quantity10 === 1) { return wordForms[0]; }
+  return wordForms[2];
+}
 
 export {getRandomNumber, getRandomArrayElement, getUserNumber, shuffle, getUniqueArray, declineWord};
