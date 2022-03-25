@@ -71,6 +71,6 @@ const declineWord = (quantity, wordForms) => {
   if (quantity10 > 1 && quantity10 < 5) { return wordForms[1]; }
   if (quantity10 === 1) { return wordForms[0]; }
   return wordForms[2];
-}
+};
 
 export {getRandomNumber, getRandomArrayElement, getUserNumber, shuffle, getUniqueArray, declineWord};
