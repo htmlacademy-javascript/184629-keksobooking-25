@@ -58,4 +58,14 @@ const getUniqueArray = (array) => {
   return sortedArray.slice(0,randomLength);
 };
 
-export {getRandomNumber, getRandomArrayElement, getUserNumber, shuffle, getUniqueArray};
+/**
+ * Получение существительного соответствующего склонения числительному
+ * @param {number} quantity количество элементов (числительное соответствующее существительному)
+ * @param {array} wordForms массив вариантов склонения одного слова: при единице, от двух до четырех, от пяти до девяти либо десятки
+ * @returns {string} существительного соответствующего склонения числительному
+ */
+const declineWord = (quantity, wordForms) => {
+  return wordForms[(quantity % 100 > 4 && quantity % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][(quantity % 10 < 5) ? Math.abs(quantity) % 10 : 5]];
+};
+
+export {getRandomNumber, getRandomArrayElement, getUserNumber, shuffle, getUniqueArray, declineWord};

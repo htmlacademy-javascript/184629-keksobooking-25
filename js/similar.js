@@ -1,4 +1,5 @@
 import {generateAdsNearby} from './data.js';
+import {declineWord} from "./util.js";
 
 const renamingTypes = {
   flat: 'Квартира',
@@ -8,21 +9,10 @@ const renamingTypes = {
   hotel: 'Отель'
 };
 const generateCapacity = (rooms, guests) => {
-  let roomsText;
-  switch (rooms) {
-    case 1:
-      roomsText = 'комната';
-      break;
-    case 2:
-    case 3:
-    case 4:
-      roomsText = 'комнаты';
-      break;
-    default:
-      roomsText = 'комнат';
-  }
+  const roomsText = ['комната', 'комнаты', 'комнат'];
   const guestText = `${guests === 1 ? 'гостя' : 'гостей'}`;
-  return `${rooms} ${roomsText} для ${guests} ${guestText}`;
+
+  return `${rooms} ${declineWord(rooms, roomsText)} для ${guests} ${guestText}`;
 };
 const generateFeatureList = (card, features) => {
   const featuresList = card.querySelector('.popup__features');
