@@ -10,16 +10,16 @@ const  checkboxFilters = formFilters.querySelectorAll('.map__checkbox');
 const disableFormAdd = () => {
   formAdd.classList.add('ad-form—disabled');
   for (let i = 0; i < fieldset.length; i++) {
-    fieldset[i].setAttribute("disabled","");
+    fieldset[i].setAttribute('disabled','');
   }
 };
 const disableFormFilters = () => {
   formFilters.classList.add('map__filters--disabled');
   for (let i = 0; i < selectionFilters.length; i++) {
-    selectionFilters[i].setAttribute("disabled","");
+    selectionFilters[i].setAttribute('disabled','');
   }
   for (let i = 0; i < checkboxFilters.length; i++) {
-    checkboxFilters[i].setAttribute("disabled","");
+    checkboxFilters[i].setAttribute('disabled','');
   }
 };
 
@@ -31,16 +31,16 @@ const disableForms = () => {
 const activateFormAdd = () => {
   formAdd.classList.remove('ad-form—disabled');
   for (let i = 0; i < fieldset.length; i++) {
-    fieldset[i].removeAttribute("disabled");
+    fieldset[i].removeAttribute('disabled');
   }
 };
 const activateFormFilters = () => {
   formFilters.classList.remove('map__filters--disabled');
   for (let i = 0; i < selectionFilters.length; i++) {
-    selectionFilters[i].removeAttribute("disabled");
+    selectionFilters[i].removeAttribute('disabled');
   }
   for (let i = 0; i < checkboxFilters.length; i++) {
-    checkboxFilters[i].removeAttribute("disabled");
+    checkboxFilters[i].removeAttribute('disabled');
   }
 };
 
