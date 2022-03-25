@@ -23,7 +23,7 @@ const disableFormFilters = () => {
   }
 };
 
-const disablePage = () => {
+const disableForms = () => {
   disableFormAdd();
   disableFormFilters();
 };
@@ -44,11 +44,11 @@ const activateFormFilters = () => {
   }
 };
 
-const activatePage = () => {
+const activateForms = () => {
   activateFormAdd();
   activateFormFilters();
 };
 
-disablePage();
+disableForms();
 renderSimilarAds();
-activatePage();
+activateForms();
