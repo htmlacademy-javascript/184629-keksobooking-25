@@ -1,4 +1,4 @@
-import {disableElements, activateElements} from "./util.js";
+import {disableElements, activateElements} from './util.js';
 
 const formAddAds = document.querySelector('.ad-form');
 const setsOfFields = formAddAds.getElementsByTagName('fieldset');
@@ -10,7 +10,7 @@ const disableFormAddAds = () => {
 
 const activateFormAddAds = () => {
   formAddAds.classList.remove('ad-form—disabled');
-  activateElements(setsOfFields)
+  activateElements(setsOfFields);
 };
 
 export {disableFormAddAds, activateFormAddAds};

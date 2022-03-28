@@ -78,7 +78,7 @@ const declineWord = (quantity, wordForms) => {
  * @param {object} elements объект полей формы
  */
 const disableElements = (elements) => {
-  Object.values(elements).forEach(function(val) {
+  Object.values(elements).forEach((val) => {
     val.setAttribute('disabled','');
   });
 };
@@ -88,7 +88,7 @@ const disableElements = (elements) => {
  * @param {object} elements объект полей формы
  */
 const activateElements = (elements) => {
-  Object.values(elements).forEach(function(val) {
+  Object.values(elements).forEach((val) => {
     val.removeAttribute('disabled');
   });
 };

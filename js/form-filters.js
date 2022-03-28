@@ -1,4 +1,4 @@
-import {disableElements, activateElements} from "./util.js";
+import {disableElements, activateElements} from './util.js';
 
 const formFilters = document.querySelector('.map__filters');
 const  selectionFilters = formFilters.querySelectorAll('.map__filter');
