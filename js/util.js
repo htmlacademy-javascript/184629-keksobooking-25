@@ -73,4 +73,24 @@ const declineWord = (quantity, wordForms) => {
   return wordForms[2];
 };
 
-export {getRandomNumber, getRandomArrayElement, getUserNumber, shuffle, getUniqueArray, declineWord};
+/**
+ * Добавление атрибута блокировки изменений для всех полей в объекте
+ * @param {object} elements объект полей формы
+ */
+const disableElements = (elements) => {
+  Object.values(elements).forEach(function(val) {
+    val.setAttribute('disabled','');
+  });
+};
+
+/**
+ * Удаление атрибута блокировки изменений для всех полей в объекте
+ * @param {object} elements объект полей формы
+ */
+const activateElements = (elements) => {
+  Object.values(elements).forEach(function(val) {
+    val.removeAttribute('disabled');
+  });
+};
+
+export {getRandomNumber, getRandomArrayElement, getUserNumber, shuffle, getUniqueArray, declineWord, activateElements, disableElements};

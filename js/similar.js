@@ -75,10 +75,8 @@ const renderSimilarAds = () => {
   adsList.appendChild(similarListFragment);
 };
 
-/*
 const clearSimilarAds = () => {
   adsList.innerHTML = '';
 };
-*/
 
-export {renderSimilarAds};
+export {renderSimilarAds, clearSimilarAds};
