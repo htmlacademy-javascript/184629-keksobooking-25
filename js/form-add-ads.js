@@ -44,7 +44,7 @@ const minPrice = {
 
 function validatePrice (value) {
   const type =  formAddAds.querySelector('[name="type"]');
-  return minPrice[type.value] <= parseInt(value) && parseInt(value) <= 100000;
+  return minPrice[type.value] <= value && value <= 100000;
 }
 
 function getPriceErrorMessage () {
@@ -77,17 +77,15 @@ function validateRooms () {
 }
 
 function getRoomsErrorMessage () {
-  console.log(rooms.value);
   switch(rooms.value) {
     case '1': return '1 комната для 1го гостя';
     case '2': return '2 комнаты для 2 гостей либо для 1 гостя';
     case '3': return '3 комнаты для 3, 2 или гостей';
     case '100': return 'не для гостей';
-    default: return 'Что-то пошло не так'
+    default: return 'Что-то пошло не так';
   }
 }
 function onCapacityChange () {
-  //price.placeholder = minPrice[this.value];
   pristine.validate(rooms);
 }
 
