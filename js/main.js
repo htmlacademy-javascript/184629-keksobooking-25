@@ -1,1 +1,1 @@
-import './similar.js';
+import './user-modal.js';
