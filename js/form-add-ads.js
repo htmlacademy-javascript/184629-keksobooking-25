@@ -1,5 +1,6 @@
 import {disableElements, activateElements} from './util.js';
 
+const MAXPRICE = 100000;
 const formAddAds = document.querySelector('.ad-form');
 const setsOfFields = formAddAds.getElementsByTagName('fieldset');
 
@@ -22,18 +23,9 @@ const pristine = new Pristine(formAddAds, {
   errorTextClass: 'ad-form__error'
 });
 
-
-function validateTitle (value) {
-  return value.length >= 30 && value.length <= 100;
-}
-
-pristine.addValidator(
-  formAddAds.querySelector('#title'),
-  validateTitle,
-  'От 30 до 100 символов'
-);
-
 const price = formAddAds.querySelector('#price');
+const type =  formAddAds.querySelector('[name="type"]');
+const types =  formAddAds.querySelectorAll('[name="type"]');
 const minPrice = {
   'bungalow': 0,
   'flat': 1000,
@@ -41,63 +33,38 @@ const minPrice = {
   'house': 5000,
   'palace': 10000
 };
-
-function validatePrice (value) {
-  const type =  formAddAds.querySelector('[name="type"]');
-  return minPrice[type.value] <= value && value <= 100000;
-}
-
-function getPriceErrorMessage () {
-  const type =  formAddAds.querySelector('[name="type"]');
-  return `от ${minPrice[type.value]} до 100000`;
-}
-
-function onTypeChange () {
+const validatePrice = (value) => minPrice[type.value] <= value && value <= MAXPRICE;
+const getPriceErrorMessage = () => `от ${minPrice[type.value]} до ${MAXPRICE}`;
+function onTypeChange() {
   price.placeholder = minPrice[this.value];
   pristine.validate(price);
 }
-
-formAddAds
-  .querySelectorAll('[name="type"]')
-  .forEach((item) => item.addEventListener('change', onTypeChange));
-
+types.forEach((item) => item.addEventListener('change', onTypeChange));
 pristine.addValidator(price, validatePrice, getPriceErrorMessage);
 
 const rooms = formAddAds.querySelector('[name="rooms"]');
 const capacity = formAddAds.querySelector('[name="capacity"]');
-const roomsOption = {
-  1: ['1'],
-  2: ['2', '1'],
-  3: ['3', '2', '1'],
-  100: ['0']
-};
-
-function validateRooms () {
-  return roomsOption[rooms.value].includes(capacity.value);
+const capacityObject = formAddAds.querySelectorAll('[name="capacity"]');
+const validateRooms = () => {
+  const condition1 = (parseInt(rooms.value) < 100 && parseInt(capacity.value) > 0 && parseInt(capacity.value) <= parseInt(rooms.value));
+  const condition2 = (parseInt(rooms.value) === 100 && parseInt(capacity.value) === 0);
+  return condition1 || condition2;
 }
+const getRoomsErrorMessage = () =>
+  (rooms.value === '100' || capacity.value === '0')
+    ? `Гостей нельзя приглашать только в многокомнатную квартиру`
+    : `Гостей не может быть больше, чем комнат`;
 
-function getRoomsErrorMessage () {
-  switch(rooms.value) {
-    case '1': return '1 комната для 1го гостя';
-    case '2': return '2 комнаты для 2 гостей либо для 1 гостя';
-    case '3': return '3 комнаты для 3, 2 или гостей';
-    case '100': return 'не для гостей';
-    default: return 'Что-то пошло не так';
-  }
-}
-function onCapacityChange () {
-  pristine.validate(rooms);
-}
-
-formAddAds
-  .querySelectorAll('[name="capacity"]')
-  .forEach((item) => item.addEventListener('change', onCapacityChange));
+const onCapacityChange = () => pristine.validate(rooms);
+capacityObject.forEach((item) => item.addEventListener('change', onCapacityChange));
 
 pristine.addValidator(rooms, validateRooms, getRoomsErrorMessage);
 
 formAddAds.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+  if (!pristine.validate()) {
+    evt.preventDefault();
+    alert('Форма не отправлена, проверьте введенные данные');
+  }
 });
 
 export {disableFormAddAds, activateFormAddAds};
