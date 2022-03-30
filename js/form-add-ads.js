@@ -46,14 +46,14 @@ const rooms = formAddAds.querySelector('[name="rooms"]');
 const capacity = formAddAds.querySelector('[name="capacity"]');
 const capacityObject = formAddAds.querySelectorAll('[name="capacity"]');
 const validateRooms = () => {
-  const condition1 = (parseInt(rooms.value) < 100 && parseInt(capacity.value) > 0 && parseInt(capacity.value) <= parseInt(rooms.value));
-  const condition2 = (parseInt(rooms.value) === 100 && parseInt(capacity.value) === 0);
+  const condition1 = (parseInt(rooms.value, 10) < 100 && parseInt(capacity.value, 10) > 0 && parseInt(capacity.value, 10) <= parseInt(rooms.value, 10));
+  const condition2 = (parseInt(rooms.value, 10) === 100 && parseInt(capacity.value, 10) === 0);
   return condition1 || condition2;
-}
+};
 const getRoomsErrorMessage = () =>
   (rooms.value === '100' || capacity.value === '0')
-    ? `Гостей нельзя приглашать только в многокомнатную квартиру`
-    : `Гостей не может быть больше, чем комнат`;
+    ? 'Гостей нельзя приглашать только в многокомнатную квартиру'
+    : 'Гостей не может быть больше, чем комнат';
 
 const onCapacityChange = () => pristine.validate(rooms);
 capacityObject.forEach((item) => item.addEventListener('change', onCapacityChange));
@@ -63,7 +63,6 @@ pristine.addValidator(rooms, validateRooms, getRoomsErrorMessage);
 formAddAds.addEventListener('submit', (evt) => {
   if (!pristine.validate()) {
     evt.preventDefault();
-    alert('Форма не отправлена, проверьте введенные данные');
   }
 });
 
