@@ -46,10 +46,12 @@ const rooms = formAddAds.querySelector('[name="rooms"]');
 const capacity = formAddAds.querySelector('[name="capacity"]');
 const capacityObject = formAddAds.querySelectorAll('[name="capacity"]');
 const validateRooms = () => {
-  const condition1 = (parseInt(rooms.value, 10) < 100 && parseInt(capacity.value, 10) > 0 && parseInt(capacity.value, 10) <= parseInt(rooms.value, 10));
-  const condition2 = (parseInt(rooms.value, 10) === 100 && parseInt(capacity.value, 10) === 0);
-  return condition1 || condition2;
-};
+  const numberRooms = parseInt(rooms.value, 10);
+  const numberGuests = parseInt(capacity.value, 10);
+  const suitableForGuests = (numberRooms < 100 && numberGuests > 0 && numberGuests <= numberRooms);
+  const lonelyMultiRoom = (numberRooms === 100 && numberGuests === 0);
+  return suitableForGuests || lonelyMultiRoom;
+}
 const getRoomsErrorMessage = () =>
   (rooms.value === '100' || capacity.value === '0')
     ? 'Гостей нельзя приглашать только в многокомнатную квартиру'
