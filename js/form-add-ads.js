@@ -51,7 +51,7 @@ const validateRooms = () => {
   const suitableForGuests = (numberRooms < 100 && numberGuests > 0 && numberGuests <= numberRooms);
   const lonelyMultiRoom = (numberRooms === 100 && numberGuests === 0);
   return suitableForGuests || lonelyMultiRoom;
-}
+};
 const getRoomsErrorMessage = () =>
   (rooms.value === '100' || capacity.value === '0')
     ? 'Гостей нельзя приглашать только в многокомнатную квартиру'
