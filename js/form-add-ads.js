@@ -16,11 +16,13 @@ const activateFormAddAds = () => {
 
 const timein = formAddAds.querySelector('[name="timein"]');
 const timeout = formAddAds.querySelector('[name="timeout"]');
-timein.addEventListener('change', function changeTimeOut () {
+timein.addEventListener('change',() => {
   timeout.value = timein.value;
+  return null;
 });
-timeout.addEventListener('change', function changeTimeIn() {
+timeout.addEventListener('change', () => {
   timein.value = timeout.value;
+  return null;
 });
 
 const pristine = new Pristine(formAddAds, {
