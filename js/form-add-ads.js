@@ -81,8 +81,8 @@ formAddAds.addEventListener('submit', (evt) => {
       successMessage.remove();
     });
 
-    document.addEventListener('keydown', (event) => {
-      if (isEscapeKey(event)) {
+    document.addEventListener('keydown', (evt) => {
+      if (isEscapeKey(evt)) {
         successMessage.remove();
       }
     });
@@ -95,8 +95,8 @@ formAddAds.addEventListener('submit', (evt) => {
     errorMessage.addEventListener('click', () => {
       errorMessage.remove();
     });
-    document.addEventListener('keydown', (event) => {
-      if (isEscapeKey(event)) {
+    document.addEventListener('keydown', (evt) => {
+      if (isEscapeKey(evt)) {
         errorMessage.remove();
       }
     });
