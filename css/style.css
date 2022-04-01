@@ -380,6 +380,11 @@ fieldset {
   border-radius: 4px;
 }
 
+.ad-form__error {
+  display: inherit;
+  color: #dc143c;
+}
+
 .ad-form__element input:hover,
 .ad-form__element select:hover,
 .ad-form__element textarea:hover {
