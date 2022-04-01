@@ -16,11 +16,11 @@ const activateFormAddAds = () => {
 
 const timein = formAddAds.querySelector('[name="timein"]');
 const timeout = formAddAds.querySelector('[name="timeout"]');
-timein.addEventListener('change', function () {
-  timeout.value = timein.value
+timein.addEventListener('change', function changeTimeOut () {
+  timeout.value = timein.value;
 });
-timeout.addEventListener('change', function () {
-  timein.value = timeout.value
+timeout.addEventListener('change', function changeTimeIn() {
+  timein.value = timeout.value;
 });
 
 const pristine = new Pristine(formAddAds, {
@@ -81,8 +81,8 @@ formAddAds.addEventListener('submit', (evt) => {
       successMessage.remove();
     });
 
-    document.addEventListener('keydown', (evt) => {
-      if (isEscapeKey(evt)) {
+    document.addEventListener('keydown', (event) => {
+      if (isEscapeKey(event)) {
         successMessage.remove();
       }
     });
@@ -95,8 +95,8 @@ formAddAds.addEventListener('submit', (evt) => {
     errorMessage.addEventListener('click', () => {
       errorMessage.remove();
     });
-    document.addEventListener('keydown', (evt) => {
-      if (isEscapeKey(evt)) {
+    document.addEventListener('keydown', (event) => {
+      if (isEscapeKey(event)) {
         errorMessage.remove();
       }
     });
