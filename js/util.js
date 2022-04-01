@@ -98,17 +98,13 @@ const activateElements = (elements) => {
  * @param {event} evt параметры события при нажатии клавиши
  * @returns {boolean} была нажата клавиша Escape
  */
-const isEscapeKey = (evt) => {
-  return evt.key === 'Escape';
-};
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
 /**
  * Проверка была ли нажатая кнопка клавишей Enter
  * @param {event} evt параметры события при нажатии клавиши
  * @returns {boolean} была нажата клавиша Enter
  */
-const isEnterKey = (evt) => {
-  return evt.key === 'Enter';
-};
+const isEnterKey = (evt) => evt.key === 'Enter';
 
 export {getRandomNumber, getRandomArrayElement, getUserNumber, shuffle, getUniqueArray, declineWord, activateElements, disableElements, isEscapeKey, isEnterKey};
