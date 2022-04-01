@@ -1,4 +1,4 @@
-import {disableElements, activateElements} from './util.js';
+import {disableElements, activateElements, isEscapeKey} from './util.js';
 
 const MAXPRICE = 100000;
 const formAddAds = document.querySelector('.ad-form');
@@ -13,6 +13,11 @@ const activateFormAddAds = () => {
   formAddAds.classList.remove('ad-form—disabled');
   activateElements(setsOfFields);
 };
+
+const timein = formAddAds.querySelector('[name="timein"]');
+const timeout = formAddAds.querySelector('[name="timeout"]');
+timein.addEventListener('change', () => timeout.value = timein.value);
+timeout.addEventListener('change', () => timein.value = timeout.value);
 
 const pristine = new Pristine(formAddAds, {
   classTo: 'ad-form__element',
@@ -63,8 +68,34 @@ capacityObject.forEach((item) => item.addEventListener('change', onCapacityChang
 pristine.addValidator(rooms, validateRooms, getRoomsErrorMessage);
 
 formAddAds.addEventListener('submit', (evt) => {
-  if (!pristine.validate()) {
+  if (pristine.validate()) {
+    const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+    const successMessage = successMessageTemplate.cloneNode(true);
+    document.body.append(successMessage);
+
+    successMessage.addEventListener('click', () => {
+      successMessage.remove();
+    });
+
+    document.addEventListener('keydown', (evt) => {
+      if (isEscapeKey(evt)) {
+        successMessage.remove();
+      }
+    });
+  } else {
     evt.preventDefault();
+    const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+    const errorMessage = errorMessageTemplate.cloneNode(true);
+    document.body.prepend(errorMessage);
+
+    errorMessage.addEventListener('click', () => {
+      errorMessage.remove();
+    });
+    document.addEventListener('keydown', (evt) => {
+      if (isEscapeKey(evt)) {
+        errorMessage.remove();
+      }
+    });
   }
 });
 
