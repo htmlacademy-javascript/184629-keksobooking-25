@@ -73,35 +73,45 @@ capacityObject.forEach((item) => item.addEventListener('change', onCapacityChang
 
 pristine.addValidator(rooms, validateRooms, getRoomsErrorMessage);
 
+const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+
+const closeSuccessMessage = () => {
+  const successMessage = document.querySelector('.success');
+  successMessage.remove();
+  document.removeEventListener('keydown', onSuccessMessageEscKeydown);
+};
+const onSuccessMessageEscKeydown = (event) => {
+  const successMessage = document.querySelector('.success');
+  if (isEscapeKey(event)) {
+    successMessage.remove();
+  }
+};
+const closeErrorMessage = () => {
+  const errorMessage = document.querySelector('.error');
+  errorMessage.remove();
+  document.removeEventListener('keydown', onErrorMessageEscKeydown);
+};
+const onErrorMessageEscKeydown = (event) => {
+  const errorMessage = document.querySelector('.error');
+  if (isEscapeKey(event)) {
+    errorMessage.remove();
+  }
+};
+
 formAddAds.addEventListener('submit', (evt) => {
   if (pristine.validate()) {
-    const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
     const successMessage = successMessageTemplate.cloneNode(true);
     document.body.append(successMessage);
-
-    successMessage.addEventListener('click', () => {
-      successMessage.remove();
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (isEscapeKey(event)) {
-        successMessage.remove();
-      }
-    });
+    successMessage.addEventListener('click', closeSuccessMessage);
+    document.addEventListener('keydown', onSuccessMessageEscKeydown);
   } else {
     evt.preventDefault();
-    const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
     const errorMessage = errorMessageTemplate.cloneNode(true);
     document.body.prepend(errorMessage);
 
-    errorMessage.addEventListener('click', () => {
-      errorMessage.remove();
-    });
-    document.addEventListener('keydown', (event) => {
-      if (isEscapeKey(event)) {
-        errorMessage.remove();
-      }
-    });
+    errorMessage.addEventListener('click', closeErrorMessage);
+    document.addEventListener('keydown', onErrorMessageEscKeydown);
   }
 });
 
