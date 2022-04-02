@@ -8,7 +8,6 @@ const disableFormAddAds = () => {
   formAddAds.classList.add('ad-form—disabled');
   disableElements(setsOfFields);
 };
-
 const activateFormAddAds = () => {
   formAddAds.classList.remove('ad-form—disabled');
   activateElements(setsOfFields);
@@ -103,15 +102,16 @@ formAddAds.addEventListener('submit', (evt) => {
   if (pristine.validate()) {
     const successMessage = successMessageTemplate.cloneNode(true);
     document.body.append(successMessage);
-    successMessage.addEventListener('click', closeSuccessMessage);
+
     document.addEventListener('keydown', onSuccessMessageEscKeydown);
+    successMessage.addEventListener('click', closeSuccessMessage);
   } else {
     evt.preventDefault();
     const errorMessage = errorMessageTemplate.cloneNode(true);
     document.body.prepend(errorMessage);
 
-    errorMessage.addEventListener('click', closeErrorMessage);
     document.addEventListener('keydown', onErrorMessageEscKeydown);
+    errorMessage.addEventListener('click', closeErrorMessage);
   }
 });
 
