@@ -75,27 +75,28 @@ pristine.addValidator(rooms, validateRooms, getRoomsErrorMessage);
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
-const closeSuccessMessage = () => {
-  const successMessage = document.querySelector('.success');
-  successMessage.remove();
-  document.removeEventListener('keydown', onSuccessMessageEscKeydown);
-};
 const onSuccessMessageEscKeydown = (event) => {
   const successMessage = document.querySelector('.success');
   if (isEscapeKey(event)) {
     successMessage.remove();
   }
 };
-const closeErrorMessage = () => {
-  const errorMessage = document.querySelector('.error');
-  errorMessage.remove();
-  document.removeEventListener('keydown', onErrorMessageEscKeydown);
+const closeSuccessMessage = () => {
+  const successMessage = document.querySelector('.success');
+  successMessage.remove();
+  document.removeEventListener('keydown', onSuccessMessageEscKeydown);
 };
+
 const onErrorMessageEscKeydown = (event) => {
   const errorMessage = document.querySelector('.error');
   if (isEscapeKey(event)) {
     errorMessage.remove();
   }
+};
+const closeErrorMessage = () => {
+  const errorMessage = document.querySelector('.error');
+  errorMessage.remove();
+  document.removeEventListener('keydown', onErrorMessageEscKeydown);
 };
 
 formAddAds.addEventListener('submit', (evt) => {
