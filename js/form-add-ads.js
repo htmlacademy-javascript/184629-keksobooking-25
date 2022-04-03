@@ -80,8 +80,9 @@ const onSuccessMessageEscKeydown = (event) => {
   if (isEscapeKey(event)) {
     successMessage.remove();
   }
+  successMessage.removeEventListener('click', onSuccessMessageClick);
 };
-const closeSuccessMessage = () => {
+const onSuccessMessageClick = () => {
   const successMessage = document.querySelector('.success');
   successMessage.remove();
   document.removeEventListener('keydown', onSuccessMessageEscKeydown);
@@ -92,8 +93,9 @@ const onErrorMessageEscKeydown = (event) => {
   if (isEscapeKey(event)) {
     errorMessage.remove();
   }
+  errorMessage.removeEventListener('click', onErrorMessageClick);
 };
-const closeErrorMessage = () => {
+const onErrorMessageClick = () => {
   const errorMessage = document.querySelector('.error');
   errorMessage.remove();
   document.removeEventListener('keydown', onErrorMessageEscKeydown);
@@ -105,14 +107,14 @@ formAddAds.addEventListener('submit', (evt) => {
     document.body.append(successMessage);
 
     document.addEventListener('keydown', onSuccessMessageEscKeydown);
-    successMessage.addEventListener('click', closeSuccessMessage);
+    successMessage.addEventListener('click', onSuccessMessageClick);
   } else {
     evt.preventDefault();
     const errorMessage = errorMessageTemplate.cloneNode(true);
     document.body.prepend(errorMessage);
 
     document.addEventListener('keydown', onErrorMessageEscKeydown);
-    errorMessage.addEventListener('click', closeErrorMessage);
+    errorMessage.addEventListener('click', onErrorMessageClick);
   }
 });
 
