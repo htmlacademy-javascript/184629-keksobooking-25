@@ -11,12 +11,12 @@ const onSuccessMessageEscKeydown = (event) => {
 const onSuccessMessageClick = () => {
   closeSuccessMessage();
 };
-function closeSuccessMessage () {
+const closeSuccessMessage = () => {
   const successMessage = document.querySelector('.success');
   successMessage.remove();
   document.removeEventListener('keydown', onSuccessMessageEscKeydown);
   successMessage.removeEventListener('click', onSuccessMessageClick);
-}
+};
 
 const onErrorMessageEscKeydown = (event) => {
   if (isEscapeKey(event)) {
@@ -26,12 +26,12 @@ const onErrorMessageEscKeydown = (event) => {
 const onErrorMessageClick = () => {
   closeErrorMessage();
 };
-function closeErrorMessage () {
+const closeErrorMessage = () => {
   const errorMessage = document.querySelector('.error');
   errorMessage.remove();
   document.removeEventListener('keydown', onErrorMessageEscKeydown);
   errorMessage.removeEventListener('click', onErrorMessageClick);
-}
+};
 
 const renderSuccessMessage = () => {
   const successMessage = successMessageTemplate.cloneNode(true);

@@ -1,6 +1,8 @@
 import {disableElements, activateElements} from './util.js';
 import {renderSuccessMessage, renderErrorMessage} from './popup.js';
 
+const MAX_PRICE = 100000;
+
 const formAddAds = document.querySelector('.ad-form');
 const setsOfFields = formAddAds.getElementsByTagName('fieldset');
 
@@ -23,8 +25,6 @@ timeout.addEventListener('change', () => {
   timein.value = timeout.value;
   return null;
 });
-
-const MAX_PRICE = 100000;
 
 const pristine = new Pristine(formAddAds, {
   classTo: 'ad-form__element',
