@@ -1,4 +1,4 @@
-import {isEscapeKey} from "./util.js";
+import {isEscapeKey} from './util.js';
 
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -10,7 +10,7 @@ const onSuccessMessageEscKeydown = (event) => {
 };
 const onSuccessMessageClick = () => {
   closeSuccessMessage();
-}
+};
 function closeSuccessMessage () {
   const successMessage = document.querySelector('.success');
   successMessage.remove();
@@ -25,7 +25,7 @@ const onErrorMessageEscKeydown = (event) => {
 };
 const onErrorMessageClick = () => {
   closeErrorMessage();
-}
+};
 function closeErrorMessage () {
   const errorMessage = document.querySelector('.error');
   errorMessage.remove();

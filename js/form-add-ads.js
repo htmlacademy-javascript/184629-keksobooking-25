@@ -1,5 +1,5 @@
 import {disableElements, activateElements} from './util.js';
-import {renderSuccessMessage, renderErrorMessage} from "./popup.js";
+import {renderSuccessMessage, renderErrorMessage} from './popup.js';
 
 const formAddAds = document.querySelector('.ad-form');
 const setsOfFields = formAddAds.getElementsByTagName('fieldset');
