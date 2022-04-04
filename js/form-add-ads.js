@@ -1,6 +1,6 @@
-import {disableElements, activateElements, isEscapeKey} from './util.js';
+import {disableElements, activateElements} from './util.js';
+import {renderSuccessMessage, renderErrorMessage} from "./popup.js";
 
-const MAXPRICE = 100000;
 const formAddAds = document.querySelector('.ad-form');
 const setsOfFields = formAddAds.getElementsByTagName('fieldset');
 
@@ -24,6 +24,8 @@ timeout.addEventListener('change', () => {
   return null;
 });
 
+const MAX_PRICE = 100000;
+
 const pristine = new Pristine(formAddAds, {
   classTo: 'ad-form__element',
   errorClass: 'ad-form__element--invalid',
@@ -43,8 +45,8 @@ const minPrice = {
   'house': 5000,
   'palace': 10000
 };
-const validatePrice = (value) => minPrice[type.value] <= value && value <= MAXPRICE;
-const getPriceErrorMessage = () => `от ${minPrice[type.value]} до ${MAXPRICE}`;
+const validatePrice = (value) => minPrice[type.value] <= value && value <= MAX_PRICE;
+const getPriceErrorMessage = () => `от ${minPrice[type.value]} до ${MAX_PRICE}`;
 function onTypeChange() {
   price.placeholder = minPrice[this.value];
   pristine.validate(price);
@@ -72,49 +74,12 @@ capacityObject.forEach((item) => item.addEventListener('change', onCapacityChang
 
 pristine.addValidator(rooms, validateRooms, getRoomsErrorMessage);
 
-const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
-const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
-
-const onSuccessMessageEscKeydown = (event) => {
-  const successMessage = document.querySelector('.success');
-  if (isEscapeKey(event)) {
-    successMessage.remove();
-  }
-  successMessage.removeEventListener('click', onSuccessMessageClick);
-};
-const onSuccessMessageClick = () => {
-  const successMessage = document.querySelector('.success');
-  successMessage.remove();
-  document.removeEventListener('keydown', onSuccessMessageEscKeydown);
-};
-
-const onErrorMessageEscKeydown = (event) => {
-  const errorMessage = document.querySelector('.error');
-  if (isEscapeKey(event)) {
-    errorMessage.remove();
-  }
-  errorMessage.removeEventListener('click', onErrorMessageClick);
-};
-const onErrorMessageClick = () => {
-  const errorMessage = document.querySelector('.error');
-  errorMessage.remove();
-  document.removeEventListener('keydown', onErrorMessageEscKeydown);
-};
-
 formAddAds.addEventListener('submit', (evt) => {
   if (pristine.validate()) {
-    const successMessage = successMessageTemplate.cloneNode(true);
-    document.body.append(successMessage);
-
-    document.addEventListener('keydown', onSuccessMessageEscKeydown);
-    successMessage.addEventListener('click', onSuccessMessageClick);
+    renderSuccessMessage();
   } else {
     evt.preventDefault();
-    const errorMessage = errorMessageTemplate.cloneNode(true);
-    document.body.prepend(errorMessage);
-
-    document.addEventListener('keydown', onErrorMessageEscKeydown);
-    errorMessage.addEventListener('click', onErrorMessageClick);
+    renderErrorMessage();
   }
 });
 
