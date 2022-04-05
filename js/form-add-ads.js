@@ -1,6 +1,8 @@
 import {disableElements, activateElements} from './util.js';
+import {renderSuccessMessage, renderErrorMessage} from './popup.js';
 
-const MAXPRICE = 100000;
+const MAX_PRICE = 100000;
+
 const formAddAds = document.querySelector('.ad-form');
 const setsOfFields = formAddAds.getElementsByTagName('fieldset');
 const sliderPrice = document.querySelector('.ad-form__slider');
@@ -10,12 +12,22 @@ const disableFormAddAds = () => {
   disableElements(setsOfFields);
   sliderPrice.setAttribute('disabled', '');
 };
-
 const activateFormAddAds = () => {
   formAddAds.classList.remove('ad-form—disabled');
   activateElements(setsOfFields);
   sliderPrice.removeAttribute('disabled');
 };
+
+const timein = formAddAds.querySelector('[name="timein"]');
+const timeout = formAddAds.querySelector('[name="timeout"]');
+timein.addEventListener('change',() => {
+  timeout.value = timein.value;
+  return null;
+});
+timeout.addEventListener('change', () => {
+  timein.value = timeout.value;
+  return null;
+});
 
 const pristine = new Pristine(formAddAds, {
   classTo: 'ad-form__element',
@@ -58,6 +70,10 @@ sliderPrice.noUiSlider.on('update', () => {
 });
 const validatePrice = (value) => minPrice[type.value] <= value && value <= MAXPRICE;
 const getPriceErrorMessage = () => `от ${minPrice[type.value]} до ${MAXPRICE}`;
+=======
+const validatePrice = (value) => minPrice[type.value] <= value && value <= MAX_PRICE;
+const getPriceErrorMessage = () => `от ${minPrice[type.value]} до ${MAX_PRICE}`;
+
 function onTypeChange() {
   sliderPrice.noUiSlider.updateOptions({
     range: {
@@ -93,8 +109,11 @@ capacityObject.forEach((item) => item.addEventListener('change', onCapacityChang
 pristine.addValidator(rooms, validateRooms, getRoomsErrorMessage);
 
 formAddAds.addEventListener('submit', (evt) => {
-  if (!pristine.validate()) {
+  if (pristine.validate()) {
+    renderSuccessMessage();
+  } else {
     evt.preventDefault();
+    renderErrorMessage();
   }
 });
 
