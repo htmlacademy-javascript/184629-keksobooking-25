@@ -3,15 +3,18 @@ import {disableElements, activateElements} from './util.js';
 const MAXPRICE = 100000;
 const formAddAds = document.querySelector('.ad-form');
 const setsOfFields = formAddAds.getElementsByTagName('fieldset');
+const sliderPrice = document.querySelector('.ad-form__slider');
 
 const disableFormAddAds = () => {
   formAddAds.classList.add('ad-form—disabled');
   disableElements(setsOfFields);
+  sliderPrice.setAttribute('disabled', '');
 };
 
 const activateFormAddAds = () => {
   formAddAds.classList.remove('ad-form—disabled');
   activateElements(setsOfFields);
+  sliderPrice.removeAttribute('disabled');
 };
 
 const pristine = new Pristine(formAddAds, {
@@ -26,7 +29,6 @@ const pristine = new Pristine(formAddAds, {
 const price = formAddAds.querySelector('#price');
 const type =  formAddAds.querySelector('[name="type"]');
 const types =  formAddAds.querySelectorAll('[name="type"]');
-const sliderPrice = document.querySelector('.ad-form__slider');
 const minPrice = {
   'bungalow': 0,
   'flat': 1000,
