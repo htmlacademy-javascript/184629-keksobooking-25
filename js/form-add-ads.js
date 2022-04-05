@@ -68,9 +68,7 @@ noUiSlider.create(sliderPrice, {
 sliderPrice.noUiSlider.on('update', () => {
   price.value = sliderPrice.noUiSlider.get();
 });
-const validatePrice = (value) => minPrice[type.value] <= value && value <= MAXPRICE;
-const getPriceErrorMessage = () => `от ${minPrice[type.value]} до ${MAXPRICE}`;
-=======
+
 const validatePrice = (value) => minPrice[type.value] <= value && value <= MAX_PRICE;
 const getPriceErrorMessage = () => `от ${minPrice[type.value]} до ${MAX_PRICE}`;
 
