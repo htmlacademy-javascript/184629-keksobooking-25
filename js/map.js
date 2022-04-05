@@ -24,6 +24,14 @@ const mainPinMarker = L.marker(
     icon: mainPinIcon,
   },
 );
+const renderMainPin = () => {
+  mainPinMarker.addTo(map);
+  mainPinMarker.on('moveend', (evt) => {
+    const newAddress = evt.target.getLatLng();
+    const address = document.querySelector('#address');
+    address.value = `${newAddress.lat}, ${newAddress.lng}`;
+  });
+};
 
 const similarAds = generateAdsNearby();
 const similarAdsIcon = L.icon({
@@ -31,6 +39,26 @@ const similarAdsIcon = L.icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
+
+const createMarkerSimilarAds = (point) => {
+  const {lat, lng} = point.location;
+  const marker = L.marker({
+    lat,
+    lng,
+  },
+  {
+    icon: similarAdsIcon,
+  });
+  const markerGroup = L.layerGroup().addTo(map);
+  marker.addTo(markerGroup).bindPopup(renderSimilarAds(point));
+};
+
+const renderPinSimilarAds = () => {
+  similarAds.forEach((point) => {
+    createMarkerSimilarAds(point);
+  });
+};
+
 const renderMap = () => {
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -45,32 +73,5 @@ const renderMap = () => {
   renderMainPin();
   renderPinSimilarAds();
 };
-
-const createMarkerSimilarAds = (point) => {
-  const {lat, lng} = point.location;
-  const marker = L.marker({
-      lat,
-      lng,
-    },
-    {
-      icon: similarAdsIcon,
-    });
-  const markerGroup = L.layerGroup().addTo(map);
-  marker.addTo(markerGroup).bindPopup(renderSimilarAds(point));
-};
-const renderMainPin = () => {
-  mainPinMarker.addTo(map);
-  mainPinMarker.on('moveend', (evt) => {
-    const newAddress = evt.target.getLatLng();
-    const address = document.querySelector('#address');
-    address.value = `${newAddress.lat}, ${newAddress.lng}`;
-  });
-};
-
-const renderPinSimilarAds = () => {
-  similarAds.forEach((point) => {
-    createMarkerSimilarAds(point);
-  });
-}
 
 export {renderMap, renderMainPin, renderPinSimilarAds};
