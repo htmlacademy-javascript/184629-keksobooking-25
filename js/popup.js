@@ -1,7 +1,19 @@
+/* eslint no-use-before-define: 0 */
 import {isEscapeKey} from './util.js';
 
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+
+const closeSuccessMessage = () => {
+  const successMessage = document.querySelector('.success');
+  successMessage.remove();
+  document.removeEventListener('keydown', onSuccessMessageEscKeydown);
+};
+const closeErrorMessage = () => {
+  const errorMessage = document.querySelector('.error');
+  errorMessage.remove();
+  document.removeEventListener('keydown', onErrorMessageEscKeydown);
+};
 
 const onSuccessMessageEscKeydown = (event) => {
   if (isEscapeKey(event)) {
@@ -11,12 +23,6 @@ const onSuccessMessageEscKeydown = (event) => {
 const onSuccessMessageClick = () => {
   closeSuccessMessage();
 };
-const closeSuccessMessage = () => {
-  const successMessage = document.querySelector('.success');
-  successMessage.remove();
-  document.removeEventListener('keydown', onSuccessMessageEscKeydown);
-  successMessage.removeEventListener('click', onSuccessMessageClick);
-};
 
 const onErrorMessageEscKeydown = (event) => {
   if (isEscapeKey(event)) {
@@ -25,12 +31,6 @@ const onErrorMessageEscKeydown = (event) => {
 };
 const onErrorMessageClick = () => {
   closeErrorMessage();
-};
-const closeErrorMessage = () => {
-  const errorMessage = document.querySelector('.error');
-  errorMessage.remove();
-  document.removeEventListener('keydown', onErrorMessageEscKeydown);
-  errorMessage.removeEventListener('click', onErrorMessageClick);
 };
 
 const renderSuccessMessage = () => {
