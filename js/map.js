@@ -1,13 +1,12 @@
 import {activateFormFilters} from './form-filters.js';
 import {activateFormAddAds} from './form-add-ads.js';
-import {generateAdsNearby} from './data.js';
 import {renderSimilarAds} from './similar.js';
 
 const map = L.map('map-canvas')
   .setView({
     lat: 35.68949,
     lng: 139.69171,
-  }, 12);
+  }, 13);
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
@@ -28,7 +27,6 @@ const renderMainPin = () => {
   const address = document.querySelector('#address');
   mainPinMarker.addTo(map);
   address.value = `${mainPinMarker._latlng.lat}, ${mainPinMarker._latlng.lng}`;
-  console.log(mainPinMarker);
   mainPinMarker.on('moveend', (evt) => {
     const geoData = evt.target.getLatLng();
     const addressLat = geoData.lat.toFixed(5);
@@ -37,7 +35,6 @@ const renderMainPin = () => {
   });
 };
 
-const similarAds = generateAdsNearby();
 const similarAdsIcon = L.icon({
   iconUrl: './img/pin.svg',
   iconSize: [40, 40],
@@ -57,7 +54,7 @@ const createMarkerSimilarAds = (point) => {
   marker.addTo(markerGroup).bindPopup(renderSimilarAds(point));
 };
 
-const renderPinSimilarAds = () => {
+const renderPinSimilarAds = (similarAds) => {
   similarAds.forEach((point) => {
     createMarkerSimilarAds(point);
   });
@@ -72,10 +69,13 @@ const renderMap = () => {
   ).on('load', () => {
     activateFormFilters();
     activateFormAddAds();
+    fetch('https://25.javascript.pages.academy/keksobooking/data')
+      .then((response) => response.json())
+      .then((similarAds) => {
+        renderMainPin();
+        renderPinSimilarAds(similarAds);
+      });
   }).addTo(map);
-
-  renderMainPin();
-  renderPinSimilarAds();
 };
 
 export {renderMap, renderMainPin, renderPinSimilarAds};
