@@ -1,12 +1,7 @@
-import {disableFormFilters, activateFormFilters} from './form-filters.js';
-import {disableFormAddAds, activateFormAddAds} from './form-add-ads.js';
-import {renderSimilarAds, clearSimilarAds} from './similar.js';
+import {disableFormFilters} from './form-filters.js';
+import {disableFormAddAds} from './form-add-ads.js';
+import {renderMap} from './map.js';
 
-clearSimilarAds();
 disableFormAddAds();
 disableFormFilters();
-
-renderSimilarAds();
-
-activateFormAddAds();
-activateFormFilters();
+renderMap();

@@ -1,4 +1,3 @@
-import {generateAdsNearby} from './data.js';
 import {declineWord} from './util.js';
 
 const renamingTypes = {
@@ -42,41 +41,30 @@ const similarCardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 adsList.appendChild(similarCardTemplate.cloneNode());
-const similarAds = generateAdsNearby();
 
-const renderSimilarAds = () => {
-  const similarListFragment = document.createDocumentFragment();
+const renderSimilarAds = ({author, offer}) => {
+  const cardElement = similarCardTemplate.cloneNode(true);
 
-  similarAds.forEach(({author, offer}) => {
-    const cardElement = similarCardTemplate.cloneNode(true);
+  const priceHtml = '<p class="popup__text popup__text--price">offer.price<span> ₽/ночь</span></p>';
 
-    const priceHtml = '<p class="popup__text popup__text--price">offer.price<span> ₽/ночь</span></p>';
+  cardElement.querySelector('.popup__avatar').src = author.avatar;
+  cardElement.querySelector('.popup__title').textContent = offer.title;
+  cardElement.querySelector('.popup__text--address').textContent = offer.address;
+  cardElement.querySelector('.popup__text--price').insertHTML = priceHtml;
+  cardElement.querySelector('.popup__type').textContent = renamingTypes[offer.type];
+  cardElement.querySelector('.popup__text--capacity').textContent = generateCapacity(offer.rooms, offer.guests);
+  cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
+  if (offer.features) {
+    generateFeatureList (cardElement, offer.features);
+  } else {cardElement.querySelector('.popup__features').remove();}
+  if (offer.description) {
+    cardElement.querySelector('.popup__description').textContent = offer.description;
+  } else {cardElement.querySelector('.popup__description').remove();}
+  if (offer.photos) {
+    renderPhotos (cardElement, offer.photos);
+  } else {cardElement.querySelector('.popup__photos').remove();}
 
-    cardElement.querySelector('.popup__avatar').src = author.avatar;
-    cardElement.querySelector('.popup__title').textContent = offer.title;
-    cardElement.querySelector('.popup__text--address').textContent = offer.address;
-    cardElement.querySelector('.popup__text--price').insertHTML = priceHtml;
-    cardElement.querySelector('.popup__type').textContent = renamingTypes[offer.type];
-    cardElement.querySelector('.popup__text--capacity').textContent = generateCapacity(offer.rooms, offer.guests);
-    cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-    if (offer.features) {
-      generateFeatureList (cardElement, offer.features);
-    } else {cardElement.querySelector('.popup__features').remove();}
-    if (offer.description) {
-      cardElement.querySelector('.popup__description').textContent = offer.description;
-    } else {cardElement.querySelector('.popup__description').remove();}
-    if (offer.photos) {
-      renderPhotos (cardElement, offer.photos);
-    } else {cardElement.querySelector('.popup__photos').remove();}
-
-    similarListFragment.appendChild(cardElement);
-  });
-
-  adsList.appendChild(similarListFragment);
+  return cardElement;
 };
 
-const clearSimilarAds = () => {
-  adsList.innerHTML = '';
-};
-
-export {renderSimilarAds, clearSimilarAds};
+export {renderSimilarAds};
