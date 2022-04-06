@@ -1,11 +1,15 @@
 import {disableElements, activateElements} from './util.js';
 import {renderSuccessMessage, renderErrorMessage} from './popup.js';
+import {sendData} from './api.js';
+import {clearForms} from './user-modal.js';
 
 const MAX_PRICE = 100000;
 
 const formAddAds = document.querySelector('.ad-form');
 const setsOfFields = formAddAds.getElementsByTagName('fieldset');
 const sliderPrice = document.querySelector('.ad-form__slider');
+const submitButton = formAddAds.querySelector('.ad-form__submit');
+const buttonReset = formAddAds.querySelector('.ad-form__reset');
 
 const disableFormAddAds = () => {
   formAddAds.classList.add('ad-form—disabled');
@@ -16,6 +20,7 @@ const activateFormAddAds = () => {
   formAddAds.classList.remove('ad-form—disabled');
   activateElements(setsOfFields);
   sliderPrice.removeAttribute('disabled');
+  buttonReset.addEventListener('click', clearForms);
 };
 
 const timein = formAddAds.querySelector('[name="timein"]');
@@ -68,6 +73,9 @@ noUiSlider.create(sliderPrice, {
 sliderPrice.noUiSlider.on('update', () => {
   price.value = sliderPrice.noUiSlider.get();
 });
+price.addEventListener('change', () => {
+  sliderPrice.noUiSlider.set(price.value, MAX_PRICE);
+});
 
 const validatePrice = (value) => minPrice[type.value] <= value && value <= MAX_PRICE;
 const getPriceErrorMessage = () => `от ${minPrice[type.value]} до ${MAX_PRICE}`;
@@ -76,7 +84,7 @@ function onTypeChange() {
   sliderPrice.noUiSlider.updateOptions({
     range: {
       min: minPrice[this.value],
-      max: 100000
+      max: MAX_PRICE
     },
     start: price.value > minPrice[this.value] ? price.value : minPrice[this.value]
   });
@@ -106,13 +114,41 @@ capacityObject.forEach((item) => item.addEventListener('change', onCapacityChang
 
 pristine.addValidator(rooms, validateRooms, getRoomsErrorMessage);
 
+const clearFormAddAds = () => {
+  formAddAds.reset();
+  price.value = minPrice[type.value];
+  price.placeholder = minPrice[type.value];
+  sliderPrice.noUiSlider.set(minPrice[type.value], MAX_PRICE);
+};
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикуем...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
 formAddAds.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+
   if (pristine.validate()) {
-    renderSuccessMessage();
-  } else {
-    evt.preventDefault();
-    renderErrorMessage();
+    blockSubmitButton();
+    sendData(
+      () => {
+        unblockSubmitButton();
+        renderSuccessMessage();
+        clearForms();
+      },
+      () => {
+        renderErrorMessage();
+        blockSubmitButton();
+      },
+      new FormData(evt.target),
+    );
   }
 });
 
-export {disableFormAddAds, activateFormAddAds};
+export {disableFormAddAds, activateFormAddAds, clearFormAddAds};

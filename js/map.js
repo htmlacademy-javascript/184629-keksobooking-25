@@ -2,6 +2,8 @@ import {activateFormFilters} from './form-filters.js';
 import {activateFormAddAds} from './form-add-ads.js';
 import {renderSimilarAds} from './similar.js';
 
+const address = document.querySelector('#address');
+
 const map = L.map('map-canvas')
   .setView({
     lat: 35.68949,
@@ -23,10 +25,25 @@ const mainPinMarker = L.marker(
     icon: mainPinIcon,
   },
 );
-const renderMainPin = () => {
-  const address = document.querySelector('#address');
-  mainPinMarker.addTo(map);
+
+const changeAdress =()=> {
   address.value = `${mainPinMarker._latlng.lat}, ${mainPinMarker._latlng.lng}`;
+};
+
+const returnMap = () => {
+  mainPinMarker.setLatLng({
+    lat: 35.68949,
+    lng: 139.69171,
+  });
+  map.setView({
+    lat: 35.68949,
+    lng: 139.69171,
+  }, 13);
+  changeAdress();
+};
+const renderMainPin = () => {
+  mainPinMarker.addTo(map);
+  changeAdress();
   mainPinMarker.on('moveend', (evt) => {
     const geoData = evt.target.getLatLng();
     const addressLat = geoData.lat.toFixed(5);
@@ -69,13 +86,8 @@ const renderMap = () => {
   ).on('load', () => {
     activateFormFilters();
     activateFormAddAds();
-    fetch('https://25.javascript.pages.academy/keksobooking/data')
-      .then((response) => response.json())
-      .then((similarAds) => {
-        renderMainPin();
-        renderPinSimilarAds(similarAds);
-      });
+    renderMainPin();
   }).addTo(map);
 };
 
-export {renderMap, renderMainPin, renderPinSimilarAds};
+export {renderMap, renderMainPin, renderPinSimilarAds, returnMap};

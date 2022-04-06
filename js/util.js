@@ -1,3 +1,5 @@
+const ALERT_SHOW_TIME = 5000;
+
 /**
  * Получение случайного числа из заданного диапазона
  * @param {number} min минимальное значение диапазона от нуля и выше
@@ -107,4 +109,25 @@ const isEscapeKey = (evt) => evt.key === 'Escape';
  */
 const isEnterKey = (evt) => evt.key === 'Enter';
 
-export {getRandomNumber, getRandomArrayElement, getUserNumber, shuffle, getUniqueArray, declineWord, activateElements, disableElements, isEscapeKey, isEnterKey};
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  const alertText = document.createElement('p');
+  alertContainer.appendChild(alertText);
+
+  alertContainer.classList.add('error');
+  alertText.style.position = 'relative';
+  alertText.style.fontSize = '50px';
+  alertText.style.textAlign = 'center';
+  alertText.style.fontWeight = '700';
+  alertText.style.color = '#ffffff';
+
+  alertText.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+export {getRandomNumber, getRandomArrayElement, getUserNumber, shuffle, getUniqueArray, declineWord, activateElements, disableElements, isEscapeKey, isEnterKey, showAlert};
