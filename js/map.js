@@ -5,8 +5,8 @@ import {renderSimilarAds} from './similar.js';
 
 const map = L.map('map-canvas')
   .setView({
-    lat: 35.6895,
-    lng: 139.692,
+    lat: 35.68949,
+    lng: 139.69171,
   }, 12);
 
 const mainPinIcon = L.icon({
@@ -16,8 +16,8 @@ const mainPinIcon = L.icon({
 });
 const mainPinMarker = L.marker(
   {
-    lat: 35.6895,
-    lng: 139.692,
+    lat: 35.68949,
+    lng: 139.69171,
   },
   {
     draggable: true,
@@ -25,11 +25,15 @@ const mainPinMarker = L.marker(
   },
 );
 const renderMainPin = () => {
+  const address = document.querySelector('#address');
   mainPinMarker.addTo(map);
+  address.value = `${mainPinMarker._latlng.lat}, ${mainPinMarker._latlng.lng}`;
+  console.log(mainPinMarker);
   mainPinMarker.on('moveend', (evt) => {
-    const newAddress = evt.target.getLatLng();
-    const address = document.querySelector('#address');
-    address.value = `${newAddress.lat}, ${newAddress.lng}`;
+    const geoData = evt.target.getLatLng();
+    const addressLat = geoData.lat.toFixed(5);
+    const addressLng = geoData.lng.toFixed(5);
+    address.value = `${addressLat}, ${addressLng}`;
   });
 };
 
