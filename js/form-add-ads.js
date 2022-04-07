@@ -131,21 +131,24 @@ const unblockSubmitButton = () => {
   submitButton.textContent = 'Опубликовать';
 };
 
+const onFormSuccessSent = () => {
+  renderSuccessMessage();
+  unblockSubmitButton();
+  clearForms();
+};
+const onFormErrorSent = () => {
+  renderErrorMessage();
+  unblockSubmitButton();
+};
+
 formAddAds.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
   if (pristine.validate()) {
     blockSubmitButton();
     sendData(
-      () => {
-        unblockSubmitButton();
-        renderSuccessMessage();
-        clearForms();
-      },
-      () => {
-        renderErrorMessage();
-        blockSubmitButton();
-      },
+      () => {onFormSuccessSent();},
+      () => {onFormErrorSent();},
       new FormData(evt.target),
     );
   }
