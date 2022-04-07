@@ -2,13 +2,17 @@ import {activateFormFilters} from './form-filters.js';
 import {activateFormAddAds} from './form-add-ads.js';
 import {renderSimilarAds} from './similar.js';
 
+const DEFAULT_LAT = 35.68949;
+const DEFAULT_LNG = 139.69171;
+const DEFAULT_SCALE = 13;
+
 const address = document.querySelector('#address');
 
 const map = L.map('map-canvas')
   .setView({
-    lat: 35.68949,
-    lng: 139.69171,
-  }, 13);
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
+  }, DEFAULT_SCALE);
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
@@ -17,8 +21,8 @@ const mainPinIcon = L.icon({
 });
 const mainPinMarker = L.marker(
   {
-    lat: 35.68949,
-    lng: 139.69171,
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
   },
   {
     draggable: true,
@@ -32,13 +36,13 @@ const changeAdress =()=> {
 
 const returnMap = () => {
   mainPinMarker.setLatLng({
-    lat: 35.68949,
-    lng: 139.69171,
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
   });
   map.setView({
-    lat: 35.68949,
-    lng: 139.69171,
-  }, 13);
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
+  }, DEFAULT_SCALE);
   changeAdress();
 };
 const renderMainPin = () => {
