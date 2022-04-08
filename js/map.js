@@ -1,13 +1,18 @@
 import {activateFormFilters} from './form-filters.js';
 import {activateFormAddAds} from './form-add-ads.js';
-import {generateAdsNearby} from './data.js';
 import {renderSimilarAds} from './similar.js';
+
+const DEFAULT_LAT = 35.68949;
+const DEFAULT_LNG = 139.69171;
+const DEFAULT_SCALE = 13;
+
+const address = document.querySelector('#address');
 
 const map = L.map('map-canvas')
   .setView({
-    lat: 35.6895,
-    lng: 139.692,
-  }, 12);
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
+  }, DEFAULT_SCALE);
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
@@ -16,24 +21,41 @@ const mainPinIcon = L.icon({
 });
 const mainPinMarker = L.marker(
   {
-    lat: 35.6895,
-    lng: 139.692,
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
   },
   {
     draggable: true,
     icon: mainPinIcon,
   },
 );
+
+const changeAdress =()=> {
+  address.value = `${mainPinMarker._latlng.lat}, ${mainPinMarker._latlng.lng}`;
+};
+
+const returnMap = () => {
+  mainPinMarker.setLatLng({
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
+  });
+  map.setView({
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
+  }, DEFAULT_SCALE);
+  changeAdress();
+};
 const renderMainPin = () => {
   mainPinMarker.addTo(map);
+  changeAdress();
   mainPinMarker.on('moveend', (evt) => {
-    const newAddress = evt.target.getLatLng();
-    const address = document.querySelector('#address');
-    address.value = `${newAddress.lat}, ${newAddress.lng}`;
+    const geoData = evt.target.getLatLng();
+    const addressLat = geoData.lat.toFixed(5);
+    const addressLng = geoData.lng.toFixed(5);
+    address.value = `${addressLat}, ${addressLng}`;
   });
 };
 
-const similarAds = generateAdsNearby();
 const similarAdsIcon = L.icon({
   iconUrl: './img/pin.svg',
   iconSize: [40, 40],
@@ -53,7 +75,7 @@ const createMarkerSimilarAds = (point) => {
   marker.addTo(markerGroup).bindPopup(renderSimilarAds(point));
 };
 
-const renderPinSimilarAds = () => {
+const renderPinSimilarAds = (similarAds) => {
   similarAds.forEach((point) => {
     createMarkerSimilarAds(point);
   });
@@ -68,10 +90,8 @@ const renderMap = () => {
   ).on('load', () => {
     activateFormFilters();
     activateFormAddAds();
+    renderMainPin();
   }).addTo(map);
-
-  renderMainPin();
-  renderPinSimilarAds();
 };
 
-export {renderMap, renderMainPin, renderPinSimilarAds};
+export {renderMap, renderMainPin, renderPinSimilarAds, returnMap};

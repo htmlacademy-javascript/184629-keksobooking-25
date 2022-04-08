@@ -1,7 +1,9 @@
-import {disableFormFilters} from './form-filters.js';
-import {disableFormAddAds} from './form-add-ads.js';
-import {renderMap} from './map.js';
+import {clearFormAddAds} from './form-add-ads.js';
+import {returnMap} from './map.js';
 
-disableFormAddAds();
-disableFormFilters();
-renderMap();
+const clearForms = () => {
+  clearFormAddAds();
+  returnMap();
+};
+
+export {clearForms};
