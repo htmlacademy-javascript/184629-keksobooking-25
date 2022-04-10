@@ -42,6 +42,18 @@ const similarCardTemplate = document.querySelector('#card')
   .querySelector('.popup');
 adsList.appendChild(similarCardTemplate.cloneNode());
 
+const getSimilarAdsRang = ({offer}, filters) => {
+  let rank = 0;
+
+  if (offer.type === filters.type.value) {
+    rank += 2;
+  }
+  if (offer.rooms === filters.rooms.value) {
+    rank += 1;
+  }
+  return rank;
+};
+
 const renderSimilarAds = ({author, offer}) => {
   const cardElement = similarCardTemplate.cloneNode(true);
 

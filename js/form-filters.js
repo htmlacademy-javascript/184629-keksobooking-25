@@ -9,11 +9,14 @@ const disableFormFilters = () => {
   disableElements(selectionFilters);
   disableElements(checkboxFilters);
 };
-
 const activateFormFilters = () => {
   formFilters.classList.remove('map__filters--disabled');
   activateElements(selectionFilters);
   activateElements(checkboxFilters);
+};
+
+const h = () => {
+
 };
 
 export {disableFormFilters, activateFormFilters};
