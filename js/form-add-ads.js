@@ -55,7 +55,7 @@ const minPrice = {
 };
 noUiSlider.create(sliderPrice, {
   range: {
-    min: 1000,
+    min: 0,
     max: 100000,
   },
   start: 1000,
