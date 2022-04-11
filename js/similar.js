@@ -1,4 +1,5 @@
 import {declineWord} from './util.js';
+import {getSimilarAdsRang} from './form-filters.js';
 
 const renamingTypes = {
   flat: 'Квартира',
@@ -42,27 +43,21 @@ const similarCardTemplate = document.querySelector('#card')
   .querySelector('.popup');
 adsList.appendChild(similarCardTemplate.cloneNode());
 
-const getSimilarAdsRang = ({offer}, filters) => {
-  let rank = 0;
 
-  if (offer.type === filters.type.value) {
-    rank += 2;
-  }
-  if (offer.rooms === filters.rooms.value) {
-    rank += 1;
-  }
-  return rank;
+const compareSimilarAds = (adsA, adsB) => {
+  const rankA = getSimilarAdsRang(adsA);
+  const rankB = getSimilarAdsRang(adsB);
+
+  return rankB - rankA;
 };
 
 const renderSimilarAds = ({author, offer}) => {
   const cardElement = similarCardTemplate.cloneNode(true);
 
-  const priceHtml = '<p class="popup__text popup__text--price">offer.price<span> ₽/ночь</span></p>';
-
   cardElement.querySelector('.popup__avatar').src = author.avatar;
   cardElement.querySelector('.popup__title').textContent = offer.title;
   cardElement.querySelector('.popup__text--address').textContent = offer.address;
-  cardElement.querySelector('.popup__text--price').insertHTML = priceHtml;
+  cardElement.querySelector('.popup__text--price').innerHTML = `${offer.price}<span> ₽/ночь </span>`;
   cardElement.querySelector('.popup__type').textContent = renamingTypes[offer.type];
   cardElement.querySelector('.popup__text--capacity').textContent = generateCapacity(offer.rooms, offer.guests);
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
@@ -75,8 +70,7 @@ const renderSimilarAds = ({author, offer}) => {
   if (offer.photos) {
     renderPhotos (cardElement, offer.photos);
   } else {cardElement.querySelector('.popup__photos').remove();}
-
   return cardElement;
 };
 
-export {renderSimilarAds};
+export {renderSimilarAds, compareSimilarAds};

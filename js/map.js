@@ -1,10 +1,11 @@
 import {activateFormFilters} from './form-filters.js';
 import {activateFormAddAds} from './form-add-ads.js';
-import {renderSimilarAds} from './similar.js';
+import {renderSimilarAds, compareSimilarAds} from './similar.js';
 
 const DEFAULT_LAT = 35.68949;
 const DEFAULT_LNG = 139.69171;
 const DEFAULT_SCALE = 13;
+const SIMILAR_ADS_COUNT = 10;
 
 const address = document.querySelector('#address');
 
@@ -62,6 +63,8 @@ const similarAdsIcon = L.icon({
   iconAnchor: [20, 40],
 });
 
+const markerGroup = L.layerGroup().addTo(map);
+
 const createMarkerSimilarAds = (point) => {
   const {lat, lng} = point.location;
   const marker = L.marker({
@@ -71,14 +74,17 @@ const createMarkerSimilarAds = (point) => {
   {
     icon: similarAdsIcon,
   });
-  const markerGroup = L.layerGroup().addTo(map);
   marker.addTo(markerGroup).bindPopup(renderSimilarAds(point));
 };
 
 const renderPinSimilarAds = (similarAds) => {
-  similarAds.forEach((point) => {
-    createMarkerSimilarAds(point);
-  });
+  markerGroup.clearLayers();
+  similarAds
+    .sort(compareSimilarAds)
+    .slice(0, SIMILAR_ADS_COUNT)
+    .forEach((point) => {
+      createMarkerSimilarAds(point);
+    });
 };
 
 const renderMap = () => {
