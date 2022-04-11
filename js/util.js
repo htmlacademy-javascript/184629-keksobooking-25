@@ -63,4 +63,18 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {declineWord, activateElements, disableElements, isEscapeKey, showAlert};
+/**
+ * Устранение дребезга, путем выполнении последнего вызова функции по указанной задержке
+ * @param {function} callback вызываемая функция
+ * @param {number} timeoutDelay время задержки в миллисекундах
+ * @returns {function} выполнение последней вызванной функции после задержки
+ */
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export {declineWord, activateElements, disableElements, isEscapeKey, showAlert, debounce};
