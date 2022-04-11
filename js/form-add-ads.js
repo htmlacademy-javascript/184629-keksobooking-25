@@ -81,13 +81,6 @@ const validatePrice = (value) => minPrice[type.value] <= value && value <= MAX_P
 const getPriceErrorMessage = () => `от ${minPrice[type.value]} до ${MAX_PRICE}`;
 
 function onTypeChange() {
-  sliderPrice.noUiSlider.updateOptions({
-    range: {
-      min: minPrice[this.value],
-      max: MAX_PRICE
-    },
-    start: price.value > minPrice[this.value] ? price.value : minPrice[this.value]
-  });
   price.placeholder = minPrice[this.value];
   pristine.validate(price);
 }
