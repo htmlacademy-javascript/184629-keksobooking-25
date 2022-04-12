@@ -1,6 +1,6 @@
 import {activateFormFilters} from './form-filters.js';
 import {activateFormAddAds} from './form-add-ads.js';
-import {renderSimilarAds, compareSimilarAds} from './similar.js';
+import {renderSimilarAds, getSimilarAds} from './similar.js';
 
 const DEFAULT_LAT = 35.68949;
 const DEFAULT_LNG = 139.69171;
@@ -80,7 +80,7 @@ const createMarkerSimilarAds = (point) => {
 const renderPinSimilarAds = (similarAds) => {
   markerGroup.clearLayers();
   similarAds
-    .sort(compareSimilarAds)
+    .filter(getSimilarAds)
     .slice(0, SIMILAR_ADS_COUNT)
     .forEach((point) => {
       createMarkerSimilarAds(point);

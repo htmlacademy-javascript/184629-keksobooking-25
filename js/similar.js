@@ -1,5 +1,5 @@
 import {declineWord} from './util.js';
-import {getSimilarAdsRang} from './form-filters.js';
+import {isSuitableSimilarAds} from './form-filters.js';
 
 const renamingTypes = {
   flat: 'Квартира',
@@ -43,12 +43,10 @@ const similarCardTemplate = document.querySelector('#card')
   .querySelector('.popup');
 adsList.appendChild(similarCardTemplate.cloneNode());
 
-
-const compareSimilarAds = (adsA, adsB) => {
-  const rankA = getSimilarAdsRang(adsA);
-  const rankB = getSimilarAdsRang(adsB);
-
-  return rankB - rankA;
+const getSimilarAds = (similarAds) => {
+  if (isSuitableSimilarAds (similarAds)) {
+    return similarAds;
+  }
 };
 
 const renderSimilarAds = ({author, offer}) => {
@@ -73,4 +71,4 @@ const renderSimilarAds = ({author, offer}) => {
   return cardElement;
 };
 
-export {renderSimilarAds, compareSimilarAds};
+export {renderSimilarAds, getSimilarAds};
