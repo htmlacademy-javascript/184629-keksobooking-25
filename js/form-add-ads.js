@@ -12,7 +12,8 @@ const submitButton = formAddAds.querySelector('.ad-form__submit');
 const buttonReset = formAddAds.querySelector('.ad-form__reset');
 
 const onButtonResetClick = (cb) => {
-  buttonReset.addEventListener('click', () => {
+  buttonReset.addEventListener('click', (evt) => {
+    evt.preventDefault();
     clearForms();
     cb();
   });
