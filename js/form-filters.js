@@ -1,5 +1,8 @@
 import {disableElements, activateElements} from './util.js';
 
+const FILTER_PRICE_FIRST = 10000;
+const FILTER_PRICE_SECOND = 50000;
+
 const formFilters = document.querySelector('.map__filters');
 const  selectionFilters = formFilters.querySelectorAll('.map__filter');
 const  checkboxFilters = formFilters.querySelectorAll('.map__checkbox');
@@ -25,15 +28,12 @@ const getTypeRang = (type) => {
 };
 const isSuitablePrice = (price) => {
   const priceFilter = formFilters.querySelector('#housing-price').value;
-  let isSuitable = false;
   switch (priceFilter) {
-    case 'any': isSuitable = true; break;
-    case 'low': isSuitable = (price < 10000); break;
-    case 'high': isSuitable = (price > 50000); break;
-    case 'middle': isSuitable = (price > 10000 && price < 50000); break;
-    default: isSuitable = false;
+    case 'any': return true;
+    case 'low': return price < FILTER_PRICE_FIRST;
+    case 'high': return price > FILTER_PRICE_SECOND;
+    case 'middle': return (price > FILTER_PRICE_FIRST && price < FILTER_PRICE_SECOND);
   }
-  return isSuitable;
 };
 const isSuitableRooms = (rooms) => {
   const roomsFilter = formFilters.querySelector('#housing-rooms').value;
