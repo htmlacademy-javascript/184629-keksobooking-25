@@ -11,6 +11,13 @@ const sliderPrice = document.querySelector('.ad-form__slider');
 const submitButton = formAddAds.querySelector('.ad-form__submit');
 const buttonReset = formAddAds.querySelector('.ad-form__reset');
 
+const onButtonResetClick = (cb) => {
+  buttonReset.addEventListener('click', () => {
+    clearForms();
+    cb();
+  });
+};
+
 const disableFormAddAds = () => {
   formAddAds.classList.add('ad-form—disabled');
   disableElements(setsOfFields);
@@ -20,7 +27,6 @@ const activateFormAddAds = () => {
   formAddAds.classList.remove('ad-form—disabled');
   activateElements(setsOfFields);
   sliderPrice.removeAttribute('disabled');
-  buttonReset.addEventListener('click', clearForms);
 };
 
 const timein = formAddAds.querySelector('[name="timein"]');
@@ -140,11 +146,11 @@ formAddAds.addEventListener('submit', (evt) => {
   if (pristine.validate()) {
     blockSubmitButton();
     sendData(
-      () => {onFormSuccessSent();},
-      () => {onFormErrorSent();},
+      onFormSuccessSent,
+      onFormErrorSent,
       new FormData(evt.target),
     );
-  }
+  } else {onFormErrorSent();}
 });
 
-export {disableFormAddAds, activateFormAddAds, clearFormAddAds};
+export {disableFormAddAds, activateFormAddAds, clearFormAddAds, onButtonResetClick};

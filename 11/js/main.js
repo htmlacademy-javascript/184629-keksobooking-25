@@ -1,4 +1,4 @@
-import {disableFormAddAds} from './form-add-ads.js';
+import {disableFormAddAds, onButtonResetClick} from './form-add-ads.js';
 import {disableFormFilters, onFiltersChange} from './form-filters.js';
 import {renderMap, renderPinSimilarAds} from './map.js';
 import {getData} from './api.js';
@@ -15,6 +15,7 @@ getData(
     onFiltersChange(debounce(
       () => renderPinSimilarAds(similarAds), RERENDER_DELAY,
     ));
+    onButtonResetClick(() => renderPinSimilarAds(similarAds));
   },
   () => showAlert('Не удалось загрузить данные с сервиса!'),
 );
