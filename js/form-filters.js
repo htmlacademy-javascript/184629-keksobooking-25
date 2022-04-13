@@ -23,46 +23,49 @@ const getTypeRang = (type) => {
   const typeFilter = formFilters.querySelector('#housing-type').value;
   return (type === typeFilter || typeFilter === 'any');
 };
-const getPriceRang = (price) => {
+const isSuitablePrice = (price) => {
   const priceFilter = formFilters.querySelector('#housing-price').value;
+  let isSuitable = false;
   switch (priceFilter) {
-    case 'any': return true;
-    case 'low': return price < 10000;
-    case 'high': return price > 50000;
-    case 'middle': return (price>10000 && price<50000);
+    case 'any': isSuitable = true; break;
+    case 'low': isSuitable = (price < 10000); break;
+    case 'high': isSuitable = (price > 50000); break;
+    case 'middle': isSuitable = (price > 10000 && price < 50000); break;
+    default: isSuitable = false;
   }
+  return isSuitable;
 };
-const getRoomsRang = (rooms) => {
+const isSuitableRooms = (rooms) => {
   const roomsFilter = formFilters.querySelector('#housing-rooms').value;
   const roomsString = rooms.toString();
   return (roomsString === roomsFilter || roomsFilter === 'any');
 };
-const getGuestsRang = (guests) => {
+const isSuitableGuests = (guests) => {
   const guestsFilter = formFilters.querySelector('#housing-guests').value;
   const guestString = guests.toString();
   return (guestString === guestsFilter || guestsFilter === 'any');
 };
-const getFeaturesRang = (features) => {
-  let isSuitable = true;
+const isSuitableFeatures = (features) => {
   const featuresFilters = formFilters.querySelector('#housing-features');
-  const featuresList = featuresFilters.querySelectorAll('[name="features"]');
-  featuresList.forEach((filter) => {
-    if (filter.checked) {
-      if (features) {
-        isSuitable = Array.prototype.includes.call(features, filter.value);
-      } else {
-        isSuitable = false;
+  const featuresList = featuresFilters.querySelectorAll('[name="features"]:checked');
+  if (!features && featuresList.length > 0) {
+    return false;
+  }
+  if (features && featuresList.length > 0) {
+    for (let i = 0; i < featuresList.length; i++) {
+      if (!Array.prototype.includes.call(features, featuresList[i].value)) {
+        return false;
       }
     }
-  });
-  return isSuitable;
+  }
+  return true;
 };
 
-const isSuitableSimilarAds = ({offer}) => getTypeRang(offer.type)
-    && getPriceRang(offer.price)
-    && getRoomsRang(offer.rooms)
-    && getGuestsRang(offer.guests)
-    && getFeaturesRang(offer.features);
+const isSuitableAds = ({offer}) => getTypeRang(offer.type)
+    && isSuitablePrice(offer.price)
+    && isSuitableRooms(offer.rooms)
+    && isSuitableGuests(offer.guests)
+    && isSuitableFeatures(offer.features);
 
 const onFiltersChange = (cb) => {
   formFilters.addEventListener('change', () => {
@@ -70,4 +73,4 @@ const onFiltersChange = (cb) => {
   });
 };
 
-export {disableFormFilters, activateFormFilters, clearFormFilters, isSuitableSimilarAds, onFiltersChange};
+export {disableFormFilters, activateFormFilters, clearFormFilters, isSuitableAds, onFiltersChange};

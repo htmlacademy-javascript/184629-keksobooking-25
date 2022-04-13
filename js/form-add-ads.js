@@ -146,11 +146,11 @@ formAddAds.addEventListener('submit', (evt) => {
   if (pristine.validate()) {
     blockSubmitButton();
     sendData(
-      () => {onFormSuccessSent();},
-      () => {onFormErrorSent();},
+      onFormSuccessSent,
+      onFormErrorSent,
       new FormData(evt.target),
     );
-  }
+  } else {onFormErrorSent();}
 });
 
 export {disableFormAddAds, activateFormAddAds, clearFormAddAds, onButtonResetClick};
