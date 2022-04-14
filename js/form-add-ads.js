@@ -11,6 +11,14 @@ const sliderPrice = document.querySelector('.ad-form__slider');
 const submitButton = formAddAds.querySelector('.ad-form__submit');
 const buttonReset = formAddAds.querySelector('.ad-form__reset');
 
+const onButtonResetClick = (cb) => {
+  buttonReset.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    clearForms();
+    cb();
+  });
+};
+
 const disableFormAddAds = () => {
   formAddAds.classList.add('ad-form—disabled');
   disableElements(setsOfFields);
@@ -20,7 +28,6 @@ const activateFormAddAds = () => {
   formAddAds.classList.remove('ad-form—disabled');
   activateElements(setsOfFields);
   sliderPrice.removeAttribute('disabled');
-  buttonReset.addEventListener('click', clearForms);
 };
 
 const timein = formAddAds.querySelector('[name="timein"]');
@@ -55,7 +62,7 @@ const minPrice = {
 };
 noUiSlider.create(sliderPrice, {
   range: {
-    min: 1000,
+    min: 0,
     max: 100000,
   },
   start: 1000,
@@ -81,13 +88,6 @@ const validatePrice = (value) => minPrice[type.value] <= value && value <= MAX_P
 const getPriceErrorMessage = () => `от ${minPrice[type.value]} до ${MAX_PRICE}`;
 
 function onTypeChange() {
-  sliderPrice.noUiSlider.updateOptions({
-    range: {
-      min: minPrice[this.value],
-      max: MAX_PRICE
-    },
-    start: price.value > minPrice[this.value] ? price.value : minPrice[this.value]
-  });
   price.placeholder = minPrice[this.value];
   pristine.validate(price);
 }
@@ -147,11 +147,11 @@ formAddAds.addEventListener('submit', (evt) => {
   if (pristine.validate()) {
     blockSubmitButton();
     sendData(
-      () => {onFormSuccessSent();},
-      () => {onFormErrorSent();},
+      onFormSuccessSent,
+      onFormErrorSent,
       new FormData(evt.target),
     );
-  }
+  } else {onFormErrorSent();}
 });
 
-export {disableFormAddAds, activateFormAddAds, clearFormAddAds};
+export {disableFormAddAds, activateFormAddAds, clearFormAddAds, onButtonResetClick};
