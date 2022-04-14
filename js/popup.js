@@ -4,49 +4,32 @@ import {isEscapeKey} from './util.js';
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
-const closeSuccessMessage = () => {
-  const successMessage = document.querySelector('.success');
-  successMessage.remove();
-  document.removeEventListener('keydown', onSuccessMessageEscKeydown);
-};
-const closeErrorMessage = () => {
-  const errorMessage = document.querySelector('.error');
-  errorMessage.remove();
-  document.removeEventListener('keydown', onErrorMessageEscKeydown);
-};
-
-const onSuccessMessageEscKeydown = (event) => {
-  if (isEscapeKey(event)) {
-    closeSuccessMessage();
+const onMessageEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    closeMessage(document.body.lastChild.className);
   }
 };
-const onSuccessMessageClick = () => {
-  closeSuccessMessage();
+const onMessageClick = (evt) => {
+  closeMessage(evt.target.className);
 };
 
-const onErrorMessageEscKeydown = (event) => {
-  if (isEscapeKey(event)) {
-    closeErrorMessage();
+const closeMessage = (category) => {
+  const message = document.querySelector(`.${category}`);
+  message.remove();
+  document.removeEventListener('keydown', onMessageEscKeydown);
+};
+
+const renderMessage = (category) => {
+  let newMessage;
+  if (category === 'success') {
+    newMessage = successMessageTemplate.cloneNode(true);
+  } else {
+    newMessage = errorMessageTemplate.cloneNode(true);
   }
-};
-const onErrorMessageClick = () => {
-  closeErrorMessage();
-};
+  document.body.append(newMessage);
 
-const renderSuccessMessage = () => {
-  const successMessage = successMessageTemplate.cloneNode(true);
-  document.body.append(successMessage);
-
-  document.addEventListener('keydown', onSuccessMessageEscKeydown);
-  successMessage.addEventListener('click', onSuccessMessageClick);
+  document.addEventListener('keydown', onMessageEscKeydown);
+  newMessage.addEventListener('click', onMessageClick);
 };
 
-const renderErrorMessage = () => {
-  const errorMessage = errorMessageTemplate.cloneNode(true);
-  document.body.prepend(errorMessage);
-
-  document.addEventListener('keydown', onErrorMessageEscKeydown);
-  errorMessage.addEventListener('click', onErrorMessageClick);
-};
-
-export {renderSuccessMessage, renderErrorMessage};
+export {renderMessage};

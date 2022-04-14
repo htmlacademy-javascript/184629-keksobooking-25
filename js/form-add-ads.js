@@ -1,5 +1,5 @@
 import {disableElements, activateElements} from './util.js';
-import {renderSuccessMessage, renderErrorMessage} from './popup.js';
+import {renderMessage} from './popup.js';
 import {sendData} from './api.js';
 import {clearForms} from './user-modal.js';
 import {onAvatarChange, onPhotoAdsChange, clearPreviewImg} from './image.js';
@@ -136,12 +136,12 @@ const unblockSubmitButton = () => {
 };
 
 const onFormSuccessSent = () => {
-  renderSuccessMessage();
+  renderMessage('success');
   unblockSubmitButton();
   clearForms();
 };
 const onFormErrorSent = () => {
-  renderErrorMessage();
+  renderMessage('error');
   unblockSubmitButton();
 };
 
