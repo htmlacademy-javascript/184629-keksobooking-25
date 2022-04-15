@@ -5,8 +5,9 @@ const successMessageTemplate = document.querySelector('#success').content.queryS
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
 const onMessageEscKeydown = (evt) => {
+  const message = document.querySelector('.error') ? 'error' : 'success';
   if (isEscapeKey(evt)) {
-    closeMessage(document.body.lastChild.className);
+    closeMessage(message);
   }
 };
 const onMessageClick = (evt) => {
