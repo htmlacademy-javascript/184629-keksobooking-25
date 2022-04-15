@@ -56,13 +56,13 @@ const renderSimilarAds = ({author, offer}) => {
   cardElement.querySelector('.popup__text--capacity').textContent = generateCapacity(offer.rooms, offer.guests);
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   if (offer.features) {
-    generateFeatureList (cardElement, offer.features);
+    generateFeatureList(cardElement, offer.features);
   } else {cardElement.querySelector('.popup__features').remove();}
   if (offer.description) {
     cardElement.querySelector('.popup__description').textContent = offer.description;
   } else {cardElement.querySelector('.popup__description').remove();}
   if (offer.photos) {
-    renderPhotos (cardElement, offer.photos);
+    renderPhotos(cardElement, offer.photos);
   } else {cardElement.querySelector('.popup__photos').remove();}
   return cardElement;
 };

@@ -53,7 +53,7 @@ const isSuitableFeatures = (features) => {
   }
   if (features && featuresList.length > 0) {
     for (let i = 0; i < featuresList.length; i++) {
-      if (!Array.prototype.includes.call(features, featuresList[i].value)) {
+      if (![].includes.call(features, featuresList[i].value)) {
         return false;
       }
     }
