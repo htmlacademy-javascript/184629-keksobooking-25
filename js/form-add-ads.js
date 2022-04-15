@@ -2,7 +2,7 @@ import {disableElements, activateElements} from './util.js';
 import {renderMessage} from './popup.js';
 import {sendData} from './api.js';
 import {clearForms} from './user-modal.js';
-import {onAvatarChange, onPhotoAdsChange, clearPreviewImg} from './image.js';
+import {uploadAvatar, uploadAdsPhoto, clearPreviewImg} from './image.js';
 
 const MAX_PRICE = 100000;
 
@@ -29,8 +29,8 @@ const activateFormAddAds = () => {
   formAddAds.classList.remove('ad-form—disabled');
   activateElements(setsOfFields);
   sliderPrice.removeAttribute('disabled');
-  onAvatarChange();
-  onPhotoAdsChange();
+  uploadAvatar();
+  uploadAdsPhoto();
 };
 
 const timein = formAddAds.querySelector('[name="timein"]');

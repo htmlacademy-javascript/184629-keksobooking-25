@@ -18,8 +18,8 @@ const uploadAnImage = (fileChooser, previewImg) => {
     previewImg.src = URL.createObjectURL(file);
   }
 };
-const uploadAnAvatar = () => uploadAnImage(fileChooserAvatar, previewAvatarImg);
-const uploadAnDwellingPhoto = (evt) => {
+const onAvatarChange = () => uploadAnImage(fileChooserAvatar, previewAvatarImg);
+const onAdsPhotoChange = (evt) => {
   previewPhotoAds.innerHTML='';
   const newImage = document.createElement('img');
   newImage.style.width = '100%';
@@ -29,11 +29,11 @@ const uploadAnDwellingPhoto = (evt) => {
   previewPhotoAds.appendChild(newImage);
 };
 
-const onAvatarChange = () => {
-  fileChooserAvatar.addEventListener('change', uploadAnAvatar);
+const uploadAvatar = () => {
+  fileChooserAvatar.addEventListener('change', onAvatarChange);
 };
-const onPhotoAdsChange = () => {
-  fileChooserPhotoAds.addEventListener('change', (evt) => uploadAnDwellingPhoto(evt));
+const uploadAdsPhoto = () => {
+  fileChooserPhotoAds.addEventListener('change', onAdsPhotoChange);
 };
 
 const clearPreviewImg = () => {
@@ -41,4 +41,4 @@ const clearPreviewImg = () => {
   previewPhotoAds.innerHTML='';
 };
 
-export {onAvatarChange, onPhotoAdsChange, clearPreviewImg};
+export {uploadAvatar, uploadAdsPhoto, clearPreviewImg};
