@@ -31,8 +31,11 @@ const mainPinMarker = L.marker(
   },
 );
 
-const changeAdress =()=> {
-  address.value = `${mainPinMarker._latlng.lat}, ${mainPinMarker._latlng.lng}`;
+const changeAdress = () => {
+  const geoData = mainPinMarker.getLatLng();
+  const addressLat = geoData.lat.toFixed(5);
+  const addressLng = geoData.lng.toFixed(5);
+  address.value = `${addressLat}, ${addressLng}`;
 };
 
 const returnMap = () => {
@@ -49,12 +52,7 @@ const returnMap = () => {
 const renderMainPin = () => {
   mainPinMarker.addTo(map);
   changeAdress();
-  mainPinMarker.on('moveend', (evt) => {
-    const geoData = evt.target.getLatLng();
-    const addressLat = geoData.lat.toFixed(5);
-    const addressLng = geoData.lng.toFixed(5);
-    address.value = `${addressLat}, ${addressLng}`;
-  });
+  mainPinMarker.on('moveend', changeAdress);
 };
 
 const similarAdsIcon = L.icon({
