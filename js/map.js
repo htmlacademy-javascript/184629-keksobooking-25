@@ -1,4 +1,3 @@
-import {activateFormFilters} from './form-filters.js';
 import {activateFormAddAds} from './form-add-ads.js';
 import {renderSimilarAds, getSimilarAds} from './similar.js';
 
@@ -92,7 +91,6 @@ const renderMap = () => {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     },
   ).on('load', () => {
-    activateFormFilters();
     activateFormAddAds();
     renderMainPin();
   }).addTo(map);
