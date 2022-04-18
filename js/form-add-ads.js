@@ -7,7 +7,7 @@ import {uploadAvatar, uploadAdsPhoto, clearPreviewImg} from './image.js';
 const MAX_PRICE = 100000;
 
 const formAddAds = document.querySelector('.ad-form');
-const setsOfFields = formAddAds.getElementsByTagName('fieldset');
+const setsOfFields = formAddAds.querySelectorAll('fieldset');
 const sliderPrice = document.querySelector('.ad-form__slider');
 const submitButton = formAddAds.querySelector('.ad-form__submit');
 const buttonReset = formAddAds.querySelector('.ad-form__reset');
@@ -155,7 +155,7 @@ formAddAds.addEventListener('submit', (evt) => {
       onFormErrorSent,
       new FormData(evt.target),
     );
-  } else {onFormErrorSent();}
+  }
 });
 
 export {disableFormAddAds, activateFormAddAds, clearFormAddAds, onButtonResetClick};

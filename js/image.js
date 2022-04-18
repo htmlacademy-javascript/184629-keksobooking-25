@@ -3,7 +3,7 @@ const DEFAULT_AVATAR = 'img/muffin-grey.svg';
 
 const fileChooserAvatar = document.querySelector('.ad-form__field input[type=file]');
 const previewAvatar = document.querySelector('.ad-form-header__preview');
-const previewAvatarImg = previewAvatar.getElementsByTagName('img')[0];
+const previewAvatarImg = previewAvatar.querySelector('img');
 
 const fileChooserPhotoAds = document.querySelector('.ad-form__upload input[type=file]');
 const previewPhotoAds = document.querySelector('.ad-form__photo');

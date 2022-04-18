@@ -9,10 +9,10 @@ const renamingTypes = {
   hotel: 'Отель'
 };
 const generateCapacity = (rooms, guests) => {
-  const roomsText = ['комната', 'комнаты', 'комнат'];
+  const textOfRooms = ['комната', 'комнаты', 'комнат'];
   const guestText = `${guests === 1 ? 'гостя' : 'гостей'}`;
 
-  return `${rooms} ${declineWord(rooms, roomsText)} для ${guests} ${guestText}`;
+  return `${rooms} ${declineWord(rooms, textOfRooms)} для ${guests} ${guestText}`;
 };
 const generateFeatureList = (card, features) => {
   const featuresList = card.querySelector('.popup__features');

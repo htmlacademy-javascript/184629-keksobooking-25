@@ -5,13 +5,14 @@ const successMessageTemplate = document.querySelector('#success').content.queryS
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
 const onMessageEscKeydown = (evt) => {
-  const message = document.querySelector('.error') ? 'error' : 'success';
+  const category = document.querySelector('.error') ? 'error' : 'success';
   if (isEscapeKey(evt)) {
-    closeMessage(message);
+    closeMessage(category);
   }
 };
-const onMessageClick = (evt) => {
-  closeMessage(evt.target.className);
+const onMessageClick = () => {
+  const category = document.querySelector('.error') ? 'error' : 'success';
+  closeMessage(category);
 };
 
 const closeMessage = (category) => {
