@@ -155,7 +155,7 @@ formAddAds.addEventListener('submit', (evt) => {
       onFormErrorSent,
       new FormData(evt.target),
     );
-  } else {onFormErrorSent();}
+  }
 });
 
 export {disableFormAddAds, activateFormAddAds, clearFormAddAds, onButtonResetClick};
